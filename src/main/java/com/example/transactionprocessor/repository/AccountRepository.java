@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    // This function will ensure that the account balance is updated currectly in high concurrency scenarios
+    // This function will ensure that the account balance is updated correctly in high concurrency scenarios
     @Modifying
     @Transactional
     @Query("UPDATE Account a SET a.balance = a.balance + :amount WHERE a.id = :accountId")
