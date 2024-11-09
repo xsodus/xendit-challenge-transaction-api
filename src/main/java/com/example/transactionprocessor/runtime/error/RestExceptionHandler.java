@@ -40,7 +40,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidInputError.class)
     public ResponseEntity<ApiError> invlidInputError(final InvalidInputError e) {
-        log.debug("Http response status is {}", HttpStatus.UNPROCESSABLE_ENTITY);
+        log.debug("Http response status is {}", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(
                 new ApiError(
                         Errors.GENERAL_ERROR.val(),
