@@ -17,11 +17,6 @@ public interface PaymentApi {
             @ApiResponse(responseCode = "200", description = "Results are ok"),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found", content = @Content)})
-    ResponseEntity<Transaction> processPayment(@PathVariable("accountId") Long accountId, @RequestBody @Valid ProcessPaymentRequestDTO processPaymentRequestDTO);
+    ResponseEntity<Transaction> processPayment(@RequestBody @Valid ProcessPaymentRequestDTO processPaymentRequestDTO);
 
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Results are ok"),
-            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
-            @ApiResponse(responseCode = "404", description = "resource not found", content = @Content)})
-    ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId);
 }

@@ -16,4 +16,11 @@ public class AccountService {
     public Optional<Account> getAccountById(Long accountId) {
         return accountRepository.findById(accountId);
     }
+
+    // Implement a function to create account by accountId
+    public Account createAccountById(Long accountId) {
+        Account account = new Account();
+        account.setAccountId(accountId);
+        return accountRepository.save(account);
+    }
 }

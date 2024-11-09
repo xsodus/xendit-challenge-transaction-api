@@ -1,5 +1,6 @@
 package com.example.transactionprocessor.service;
 import com.example.transactionprocessor.model.Transaction;
+import com.example.transactionprocessor.repository.AccountRepository;
 import com.example.transactionprocessor.repository.TransactionRepository;
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
+
+    private AccountRepository accountRepository;
     public Transaction authorizeTransaction(Long accountId, BigDecimal amount) { Transaction transaction = new Transaction(); transaction.setAccountId(accountId);
         transaction.setAmount(amount);
         transaction.setStatus("AUTHORIZED");
@@ -24,12 +27,13 @@ public class TransactionService {
     @Async("asyncExecutor")
     public void settleTransaction(Long transactionId) {
         try {
-
             // Simulate delay for settlement
             Thread.sleep(5000);
-            Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(); transaction.setStatus("SETTLED");
+            Transaction transaction = transactionRepository.findById(transactionId).orElseThrow();
+            transaction.setStatus("SETTLED");
             transactionRepository.save(transaction);
-            // Here you would update the balance of the account.
+            // Update the balance of the account.
+            accountRepository.updateBalance(transaction.getAccountId(), transaction.getAmount());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

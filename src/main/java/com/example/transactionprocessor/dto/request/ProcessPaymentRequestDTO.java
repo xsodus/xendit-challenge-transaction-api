@@ -7,6 +7,9 @@ import lombok.NonNull;
 @Data
 public class ProcessPaymentRequestDTO {
     @NonNull
+    private Long accountId;
+
+    @NonNull
     private BigDecimal amount;
 
     @NonNull

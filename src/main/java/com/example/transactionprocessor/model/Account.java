@@ -11,8 +11,7 @@ import lombok.Data;
 @Data
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
 }

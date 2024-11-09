@@ -17,18 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/payments")
 public class PaymentController implements PaymentApi {
     @Autowired
     private TransactionService transactionService;
 
     @Override
     @PostMapping(
-            value = "/{accountId}",
+            value = "/api/payments",
             produces = "application/json",
             consumes = "application/json"
     )
-    public ResponseEntity<Transaction> processPayment(@PathVariable("accountId") Long accountId, @RequestBody @Valid
+    public ResponseEntity<Transaction> processPayment(@RequestBody @Valid
                                       ProcessPaymentRequestDTO processPaymentRequestDTO) {
         // TODO : Validate this logic with unit test
 
@@ -68,23 +67,10 @@ public class PaymentController implements PaymentApi {
         }
 
         // Authorize the payment
-        Transaction transaction = transactionService.authorizeTransaction(accountId, processPaymentRequestDTO.getAmount());
+        Transaction transaction = transactionService.authorizeTransaction(processPaymentRequestDTO.getAccountId(), processPaymentRequestDTO.getAmount());
         // Asynchronously settle the payment
         transactionService.settleTransaction(transaction.getId());
         return ResponseEntity.ok(transaction);
-    }
-
-    @Override
-    @GetMapping(
-            value = "/{accountId}",
-            produces = "application/json"
-    )
-    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId) {
-        var transactions = transactionService.getTransactionsByAccountId(accountId);
-        if (transactions.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(transactions);
     }
 
 }
