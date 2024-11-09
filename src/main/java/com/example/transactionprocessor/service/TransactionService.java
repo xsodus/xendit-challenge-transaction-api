@@ -12,7 +12,9 @@ public class TransactionService {
     public Transaction authorizeTransaction(Long accountId, BigDecimal amount) { Transaction transaction = new Transaction(); transaction.setAccountId(accountId);
         transaction.setAmount(amount);
         transaction.setStatus("AUTHORIZED");
-        return transactionRepository.save(transaction); }
+        return transactionRepository.save(transaction);
+    }
+
     @Async("asyncExecutor")
     public void settleTransaction(Long transactionId) {
         try {
