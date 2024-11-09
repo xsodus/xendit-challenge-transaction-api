@@ -3,23 +3,26 @@ import com.example.transactionprocessor.api.PaymentApi;
 import com.example.transactionprocessor.dto.request.CreditCardDetail;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.model.Transaction;
+import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
+import com.example.transactionprocessor.service.AccountService;
 import com.example.transactionprocessor.service.TransactionService;
 import jakarta.validation.Valid;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+@Slf4j
 @RestController
 public class PaymentController implements PaymentApi {
     @Autowired
     private TransactionService transactionService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Override
     @PostMapping(
@@ -28,8 +31,12 @@ public class PaymentController implements PaymentApi {
             consumes = "application/json"
     )
     public ResponseEntity<Transaction> processPayment(@RequestBody @Valid
-                                      ProcessPaymentRequestDTO processPaymentRequestDTO) {
+                                      ProcessPaymentRequestDTO processPaymentRequestDTO) throws InvalidInputError {
         // TODO : Validate this logic with unit test
+        // Valid the accountId in processPaymentRequestDTO does exist in the system
+        if (!accountService.getAccountById(processPaymentRequestDTO.getAccountId()).isPresent()) {
+            throw new InvalidInputError("Account not found");
+        }
 
         // Validate credit card data in processPaymentRequestDTO
         CreditCardDetail creditCardDetail = processPaymentRequestDTO.getCreditCardDetail();
@@ -39,31 +46,31 @@ public class PaymentController implements PaymentApi {
 
         // Validate credit card number format (simple regex for illustration)
         if (!creditCardNumber.matches("\\d{16}")) {
-            return ResponseEntity.badRequest().body(null);
+            throw new InvalidInputError("Invalid credit card number");
         }
 
         // Validate expiration month
         int month = Integer.parseInt(expirationMonth);
         if (month < 1 || month > 12) {
-            return ResponseEntity.badRequest().body(null);
+            throw new InvalidInputError("Invalid expiration month");
         }
 
         // Validate expiration year (simple check for illustration)
         int year = Integer.parseInt(expirationYear);
         if (year < 2023) {
-            return ResponseEntity.badRequest().body(null);
+            throw new InvalidInputError("Invalid expiration year");
         }
 
         // Validate email address format inside processPaymentRequestDTO
         String email = processPaymentRequestDTO.getBillingDetail().getEmail();
         if (!email.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
-            return ResponseEntity.badRequest().body(null);
+            throw new InvalidInputError("Invalid email address");
         }
 
         // Validate postal code format inside processPaymentRequestDTO
         String postCode = processPaymentRequestDTO.getBillingDetail().getPostalCode();
         if (!postCode.matches("^\\d{5}$")) {
-            return ResponseEntity.badRequest().body(null);
+            throw new InvalidInputError("Invalid postal code");
         }
 
         // Authorize the payment

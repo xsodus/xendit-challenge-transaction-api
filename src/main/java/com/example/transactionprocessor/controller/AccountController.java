@@ -4,6 +4,7 @@ import com.example.transactionprocessor.api.AccountApi;
 import com.example.transactionprocessor.model.Account;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.AccountRepository;
+import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
 import com.example.transactionprocessor.service.TransactionService;
 import java.util.List;
 import org.springframework.data.repository.query.Param;
@@ -30,23 +31,23 @@ public class AccountController implements AccountApi {
 
     @Override
     @GetMapping(value = "/{accountId}", produces = {"application/json"} )
-    public ResponseEntity<Account> getAccountData(Long accountId) {
+    public ResponseEntity<Account> getAccountData(Long accountId) throws InvalidInputError {
         // fetch account by accountId from Account Service and return 404 if not found
         var account = accountRepository.findById(accountId);
         if(account.isPresent()){
             return ResponseEntity.ok(account.get());
         } else {
-            return ResponseEntity.notFound().build();
+            throw new InvalidInputError("Account not found!");
         }
     }
 
     @Override
     @PutMapping(value = "/{accountId}", produces = {"application/json"} )
-    public ResponseEntity<Account> createAccountData(Long accountId) {
+    public ResponseEntity<Account> createAccountData(Long accountId) throws InvalidInputError {
         // Create account by accountId from Account Service and return bad request status if account already exists
         var account = accountRepository.findById(accountId);
         if(account.isPresent()){
-            return ResponseEntity.badRequest().build();
+            throw new InvalidInputError("The account already exists!");
         } else {
             Account newAccount = new Account();
             newAccount.setAccountId(accountId);
@@ -60,10 +61,11 @@ public class AccountController implements AccountApi {
             value = "/{accountId}/transactions",
             produces = "application/json"
     )
-    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId) {
+    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId)
+            throws InvalidInputError {
         var transactions = transactionService.getTransactionsByAccountId(accountId);
         if (transactions.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new InvalidInputError("No transactions found for the account");
         }
         return ResponseEntity.ok(transactions);
     }

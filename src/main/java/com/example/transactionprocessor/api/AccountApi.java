@@ -3,6 +3,7 @@ package com.example.transactionprocessor.api;
 import com.example.transactionprocessor.model.Account;
 
 import com.example.transactionprocessor.model.Transaction;
+import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,18 +17,19 @@ public interface AccountApi {
             @ApiResponse(responseCode = "200", description = "Results are ok"),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found", content = @Content)})
-    ResponseEntity<Account> getAccountData(@PathVariable("accountId") Long accountId);
+    ResponseEntity<Account> getAccountData(@PathVariable("accountId") Long accountId) throws InvalidInputError;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Results are ok"),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found", content = @Content)})
-    ResponseEntity<Account> createAccountData(@PathVariable("accountId") Long accountId);
+    ResponseEntity<Account> createAccountData(@PathVariable("accountId") Long accountId) throws InvalidInputError;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Results are ok"),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found", content = @Content)})
-    ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId);
+    ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId)
+            throws InvalidInputError;
 
 }

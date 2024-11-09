@@ -4,9 +4,12 @@ import com.example.transactionprocessor.repository.AccountRepository;
 import com.example.transactionprocessor.repository.TransactionRepository;
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+@Slf4j
 @Service
 public class TransactionService {
     @Autowired
@@ -33,8 +36,9 @@ public class TransactionService {
             transaction.setStatus("SETTLED");
             transactionRepository.save(transaction);
             // Update the balance of the account.
-            accountRepository.updateBalance(transaction.getAccountId(), transaction.getAmount());
-        } catch (InterruptedException e) {
+            accountRepository.addAmountToBalance(transaction.getAccountId(), transaction.getAmount());
+        } catch (Exception e) {
+            log.error("Error while settling transaction!");
             e.printStackTrace();
         }
     }
