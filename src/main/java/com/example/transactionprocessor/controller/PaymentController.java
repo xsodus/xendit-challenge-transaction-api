@@ -80,7 +80,11 @@ public class PaymentController implements PaymentApi {
             produces = "application/json"
     )
     public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId) {
-        return ResponseEntity.ok(transactionService.getTransactionsByAccountId(accountId));
+        var transactions = transactionService.getTransactionsByAccountId(accountId);
+        if (transactions.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(transactions);
     }
 
 }
