@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PaymentsProductsServiceFeeConfigurationInformationConfigurations.JSON_PROPERTY_PAYMENT_INFORMATION
 })
 @JsonTypeName("paymentsProducts_serviceFee_configurationInformation_configurations")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PaymentsProductsServiceFeeConfigurationInformationConfigurations {
   public static final String JSON_PROPERTY_PRODUCTS = "products";
   private Map<String, PaymentsProductsServiceFeeConfigurationInformationConfigurationsProductsValue> products = new HashMap<>();

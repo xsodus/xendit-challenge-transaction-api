@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PostRegistrationRequestOrganizationInformationBusinessInformationBusinessContact.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("postRegistration_request_organizationInformation_businessInformation_businessContact")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PostRegistrationRequestOrganizationInformationBusinessInformationBusinessContact {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PushFunds201ResponseProcessorInformation.JSON_PROPERTY_RETRIEVAL_REFERENCE_NUMBER
 })
 @JsonTypeName("pushFunds201Response_processorInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PushFunds201ResponseProcessorInformation {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private Integer transactionId;

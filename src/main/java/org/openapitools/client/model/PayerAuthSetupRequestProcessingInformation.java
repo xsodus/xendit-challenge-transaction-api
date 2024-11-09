@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PayerAuthSetupRequestProcessingInformation.JSON_PROPERTY_VISA_CHECKOUT_ID
 })
 @JsonTypeName("payerAuthSetup_request_processingInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PayerAuthSetupRequestProcessingInformation {
   public static final String JSON_PROPERTY_PAYMENT_SOLUTION = "paymentSolution";
   private String paymentSolution;

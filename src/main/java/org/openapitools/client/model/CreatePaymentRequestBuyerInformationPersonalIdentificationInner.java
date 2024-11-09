@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreatePaymentRequestBuyerInformationPersonalIdentificationInner.JSON_PROPERTY_VERIFICATION_RESULTS
 })
 @JsonTypeName("createPayment_request_buyerInformation_personalIdentification_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreatePaymentRequestBuyerInformationPersonalIdentificationInner {
   public static final String JSON_PROPERTY_TYPE = "type";
   private String type;

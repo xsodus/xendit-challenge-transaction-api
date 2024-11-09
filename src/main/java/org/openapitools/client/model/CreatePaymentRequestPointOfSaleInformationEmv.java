@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreatePaymentRequestPointOfSaleInformationEmv.JSON_PROPERTY_IS_REPEAT
 })
 @JsonTypeName("createPayment_request_pointOfSaleInformation_emv")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreatePaymentRequestPointOfSaleInformationEmv {
   public static final String JSON_PROPERTY_TAGS = "tags";
   private String tags;

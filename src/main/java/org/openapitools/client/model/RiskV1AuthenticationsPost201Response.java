@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   RiskV1AuthenticationsPost201Response.JSON_PROPERTY_ERROR_INFORMATION
 })
 @JsonTypeName("riskV1AuthenticationsPost201Response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class RiskV1AuthenticationsPost201Response {
   public static final String JSON_PROPERTY_LINKS = "_links";
   private PtsV2IncrementalAuthorizationPatch201ResponseLinks links;

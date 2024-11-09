@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InvoicingV2InvoicesAllGet200ResponseInvoicesInnerLinks.JSON_PROPERTY_CANCEL
 })
 @JsonTypeName("invoicingV2InvoicesAllGet200Response_invoices_inner__links")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class InvoicingV2InvoicesAllGet200ResponseInvoicesInnerLinks {
   public static final String JSON_PROPERTY_SELF = "self";
   private PtsV2PaymentsPost201ResponseLinksSelf self;

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   GetBatchStatus200ResponseBilling.JSON_PROPERTY_CCH
 })
 @JsonTypeName("getBatchStatus_200_response_billing")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class GetBatchStatus200ResponseBilling {
   public static final String JSON_PROPERTY_NAN = "nan";
   private Integer nan;

@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateBundledDecisionManagerCaseRequestBuyerInformation.JSON_PROPERTY_PERSONAL_IDENTIFICATION
 })
 @JsonTypeName("createBundledDecisionManagerCase_request_buyerInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreateBundledDecisionManagerCaseRequestBuyerInformation {
   public static final String JSON_PROPERTY_MERCHANT_CUSTOMER_ID = "merchantCustomerId";
   private String merchantCustomerId;

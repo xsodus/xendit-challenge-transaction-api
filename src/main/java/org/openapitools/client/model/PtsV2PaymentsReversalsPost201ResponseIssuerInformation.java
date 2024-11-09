@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV2PaymentsReversalsPost201ResponseIssuerInformation.JSON_PROPERTY_RESPONSE_CODE
 })
 @JsonTypeName("ptsV2PaymentsReversalsPost201Response_issuerInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV2PaymentsReversalsPost201ResponseIssuerInformation {
   public static final String JSON_PROPERTY_RESPONSE_CODE = "responseCode";
   private String responseCode;

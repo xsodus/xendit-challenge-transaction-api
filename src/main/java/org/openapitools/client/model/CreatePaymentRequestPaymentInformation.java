@@ -60,7 +60,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreatePaymentRequestPaymentInformation.JSON_PROPERTY_PAYMENT_ACCOUNT_REFERENCE
 })
 @JsonTypeName("createPayment_request_paymentInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreatePaymentRequestPaymentInformation {
   public static final String JSON_PROPERTY_CARD = "card";
   private CreatePaymentRequestPaymentInformationCard card;

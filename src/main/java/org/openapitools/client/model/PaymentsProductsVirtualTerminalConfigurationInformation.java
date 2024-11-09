@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PaymentsProductsVirtualTerminalConfigurationInformation.JSON_PROPERTY_CONFIGURATIONS
 })
 @JsonTypeName("paymentsProducts_virtualTerminal_configurationInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PaymentsProductsVirtualTerminalConfigurationInformation {
   public static final String JSON_PROPERTY_TEMPLATE_ID = "templateId";
   private UUID templateId;

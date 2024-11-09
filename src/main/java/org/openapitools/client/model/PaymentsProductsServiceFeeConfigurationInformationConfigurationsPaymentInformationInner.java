@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PaymentsProductsServiceFeeConfigurationInformationConfigurationsPaymentInformationInner.JSON_PROPERTY_FEE_CAP
 })
 @JsonTypeName("paymentsProducts_serviceFee_configurationInformation_configurations_paymentInformation_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PaymentsProductsServiceFeeConfigurationInformationConfigurationsPaymentInformationInner {
   /**
    * Payment types accepted by this merchant. The supported values are: MASTERDEBIT, MASTERCREDIT, VISACREDIT, VISADEBIT, DISCOVERCREDIT, AMEXCREDIT, ECHECK

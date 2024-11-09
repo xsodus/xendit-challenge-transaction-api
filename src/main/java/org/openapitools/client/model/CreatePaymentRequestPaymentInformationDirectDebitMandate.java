@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreatePaymentRequestPaymentInformationDirectDebitMandate.JSON_PROPERTY_CLEARING_DATE
 })
 @JsonTypeName("createPayment_request_paymentInformation_directDebit_mandate")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreatePaymentRequestPaymentInformationDirectDebitMandate {
   public static final String JSON_PROPERTY_CLEARING_DATE = "clearingDate";
   private String clearingDate;

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UpdateSubscriptionRequestOrderInformationAmountDetails.JSON_PROPERTY_SETUP_FEE
 })
 @JsonTypeName("updateSubscription_request_orderInformation_amountDetails")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class UpdateSubscriptionRequestOrderInformationAmountDetails {
   public static final String JSON_PROPERTY_BILLING_AMOUNT = "billingAmount";
   private String billingAmount;

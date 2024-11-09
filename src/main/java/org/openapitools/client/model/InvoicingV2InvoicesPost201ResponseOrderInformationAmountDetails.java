@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InvoicingV2InvoicesPost201ResponseOrderInformationAmountDetails.JSON_PROPERTY_FREIGHT
 })
 @JsonTypeName("invoicingV2InvoicesPost201Response_orderInformation_amountDetails")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class InvoicingV2InvoicesPost201ResponseOrderInformationAmountDetails {
   public static final String JSON_PROPERTY_TOTAL_AMOUNT = "totalAmount";
   private String totalAmount;

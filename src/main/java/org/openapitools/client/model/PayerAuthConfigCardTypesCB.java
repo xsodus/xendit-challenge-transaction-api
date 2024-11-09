@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PayerAuthConfigCardTypesCB.JSON_PROPERTY_CURRENCIES
 })
 @JsonTypeName("PayerAuthConfig_cardTypes_CB")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PayerAuthConfigCardTypesCB {
   public static final String JSON_PROPERTY_REQUESTOR_ID = "requestorId";
   private String requestorId;

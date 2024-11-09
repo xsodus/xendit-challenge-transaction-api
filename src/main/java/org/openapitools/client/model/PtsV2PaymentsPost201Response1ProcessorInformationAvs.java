@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV2PaymentsPost201Response1ProcessorInformationAvs.JSON_PROPERTY_CODE_RAW
 })
 @JsonTypeName("ptsV2PaymentsPost201Response_1_processorInformation_avs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV2PaymentsPost201Response1ProcessorInformationAvs {
   public static final String JSON_PROPERTY_CODE_RAW = "codeRaw";
   private String codeRaw;

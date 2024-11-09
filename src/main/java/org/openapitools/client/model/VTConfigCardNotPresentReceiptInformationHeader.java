@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   VTConfigCardNotPresentReceiptInformationHeader.JSON_PROPERTY_VIRTUAL_TERMINAL_RECEIPT_HEADER
 })
 @JsonTypeName("VTConfig_cardNotPresent_receiptInformation_header")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class VTConfigCardNotPresentReceiptInformationHeader {
   public static final String JSON_PROPERTY_VIRTUAL_TERMINAL_RECEIPT_HEADER = "virtualTerminalReceiptHeader";
   private String virtualTerminalReceiptHeader;

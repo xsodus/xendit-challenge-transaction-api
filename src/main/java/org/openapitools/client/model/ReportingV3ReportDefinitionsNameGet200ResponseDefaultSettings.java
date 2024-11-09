@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ReportingV3ReportDefinitionsNameGet200ResponseDefaultSettings.JSON_PROPERTY_REPORT_PREFERENCES
 })
 @JsonTypeName("reportingV3ReportDefinitionsNameGet200Response_defaultSettings")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class ReportingV3ReportDefinitionsNameGet200ResponseDefaultSettings {
   public static final String JSON_PROPERTY_REPORT_MIME_TYPE = "reportMimeType";
   private String reportMimeType;

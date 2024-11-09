@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV2PaymentsPost201ResponseRiskInformationTravel.JSON_PROPERTY_LAST_DESTINATION
 })
 @JsonTypeName("ptsV2PaymentsPost201Response_riskInformation_travel")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV2PaymentsPost201ResponseRiskInformationTravel {
   public static final String JSON_PROPERTY_ACTUAL_FINAL_DESTINATION = "actualFinalDestination";
   private PtsV2PaymentsPost201ResponseRiskInformationTravelActualFinalDestination actualFinalDestination;

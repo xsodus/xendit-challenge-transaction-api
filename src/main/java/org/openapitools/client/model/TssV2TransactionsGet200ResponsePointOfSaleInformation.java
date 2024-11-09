@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TssV2TransactionsGet200ResponsePointOfSaleInformation.JSON_PROPERTY_EMV
 })
 @JsonTypeName("tssV2TransactionsGet200Response_pointOfSaleInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class TssV2TransactionsGet200ResponsePointOfSaleInformation {
   public static final String JSON_PROPERTY_TERMINAL_ID = "terminalId";
   private String terminalId;

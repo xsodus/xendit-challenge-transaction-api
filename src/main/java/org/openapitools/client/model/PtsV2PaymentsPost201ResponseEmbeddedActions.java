@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV2PaymentsPost201ResponseEmbeddedActions.JSON_PROPERTY_W_A_T_C_H_L_I_S_T_S_C_R_E_E_N_I_N_G
 })
 @JsonTypeName("ptsV2PaymentsPost201Response_embeddedActions")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV2PaymentsPost201ResponseEmbeddedActions {
   public static final String JSON_PROPERTY_C_A_P_T_U_R_E = "CAPTURE";
   private PtsV2PaymentsPost201ResponseEmbeddedActionsCAPTURE CAPTURE;

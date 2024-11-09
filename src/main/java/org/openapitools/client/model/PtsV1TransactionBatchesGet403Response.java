@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV1TransactionBatchesGet403Response.JSON_PROPERTY_SUBMIT_TIME_UTC
 })
 @JsonTypeName("ptsV1TransactionBatchesGet403Response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV1TransactionBatchesGet403Response {
   public static final String JSON_PROPERTY_ERROR_INFORMATION = "errorInformation";
   private PtsV1TransactionBatchesGet400ResponseErrorInformation errorInformation;

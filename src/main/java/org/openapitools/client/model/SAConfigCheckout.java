@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SAConfigCheckout.JSON_PROPERTY_RETURN_TO_MERCHANT_SITE_URL
 })
 @JsonTypeName("SAConfig_checkout")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class SAConfigCheckout {
   public static final String JSON_PROPERTY_DISPLAY_TAX_AMOUNT = "displayTaxAmount";
   private Boolean displayTaxAmount;

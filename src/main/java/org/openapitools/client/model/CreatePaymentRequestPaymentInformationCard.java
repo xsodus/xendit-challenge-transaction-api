@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreatePaymentRequestPaymentInformationCard.JSON_PROPERTY_TYPE_SELECTION_INDICATOR
 })
 @JsonTypeName("createPayment_request_paymentInformation_card")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreatePaymentRequestPaymentInformationCard {
   public static final String JSON_PROPERTY_NUMBER = "number";
   private String number;

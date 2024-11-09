@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   GetRegistration200Response.JSON_PROPERTY_DETAILS
 })
 @JsonTypeName("getRegistration_200_response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class GetRegistration200Response {
   public static final String JSON_PROPERTY_REGISTRATION_INFORMATION = "registrationInformation";
   private PostRegistrationRequestRegistrationInformation registrationInformation;

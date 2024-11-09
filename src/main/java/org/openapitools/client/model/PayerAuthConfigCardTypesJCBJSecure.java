@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PayerAuthConfigCardTypesJCBJSecure.JSON_PROPERTY_CURRENCIES
 })
 @JsonTypeName("PayerAuthConfig_cardTypes_jCBJSecure")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PayerAuthConfigCardTypesJCBJSecure {
   public static final String JSON_PROPERTY_SECURE_PASSWORD_FOR_J_C_B = "securePasswordForJCB";
   private String securePasswordForJCB;

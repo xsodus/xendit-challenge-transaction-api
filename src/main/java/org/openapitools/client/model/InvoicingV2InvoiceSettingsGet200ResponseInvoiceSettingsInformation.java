@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InvoicingV2InvoiceSettingsGet200ResponseInvoiceSettingsInformation.JSON_PROPERTY_VAT_REGISTRATION_NUMBER
 })
 @JsonTypeName("invoicingV2InvoiceSettingsGet200Response_invoiceSettingsInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class InvoicingV2InvoiceSettingsGet200ResponseInvoiceSettingsInformation {
   public static final String JSON_PROPERTY_MERCHANT_LOGO = "merchantLogo";
   private String merchantLogo;

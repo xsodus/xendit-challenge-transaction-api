@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TssV2PostEmvTags200ResponseParsedEMVTagsListInner.JSON_PROPERTY_EMV_TAG_BREAKDOWN_LIST
 })
 @JsonTypeName("tssV2PostEmvTags200Response_parsedEMVTagsList_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class TssV2PostEmvTags200ResponseParsedEMVTagsListInner {
   public static final String JSON_PROPERTY_REQUEST_ID = "requestId";
   private String requestId;

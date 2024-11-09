@@ -76,7 +76,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   RiskV1DecisionsPost201ResponseConsumerAuthenticationInformation.JSON_PROPERTY_IDCI_SCORE
 })
 @JsonTypeName("riskV1DecisionsPost201Response_consumerAuthenticationInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class RiskV1DecisionsPost201ResponseConsumerAuthenticationInformation {
   public static final String JSON_PROPERTY_ACCESS_TOKEN = "accessToken";
   private String accessToken;

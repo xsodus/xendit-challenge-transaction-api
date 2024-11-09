@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateWebhookSubscriptionRequestSecurityPolicyConfig.JSON_PROPERTY_ADDITIONAL_CONFIG
 })
 @JsonTypeName("createWebhookSubscription_request_securityPolicy_config")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreateWebhookSubscriptionRequestSecurityPolicyConfig {
   public static final String JSON_PROPERTY_O_AUTH_TOKEN_EXPIRY = "oAuthTokenExpiry";
   private String oAuthTokenExpiry;

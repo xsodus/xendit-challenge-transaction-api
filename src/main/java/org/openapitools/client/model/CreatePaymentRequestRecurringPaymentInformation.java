@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreatePaymentRequestRecurringPaymentInformation.JSON_PROPERTY_REFERENCE_NUMBER
 })
 @JsonTypeName("createPayment_request_recurringPaymentInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreatePaymentRequestRecurringPaymentInformation {
   public static final String JSON_PROPERTY_END_DATE = "endDate";
   private String endDate;

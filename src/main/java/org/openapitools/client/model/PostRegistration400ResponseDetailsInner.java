@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PostRegistration400ResponseDetailsInner.JSON_PROPERTY_REASON
 })
 @JsonTypeName("postRegistration_400_response_details_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PostRegistration400ResponseDetailsInner {
   public static final String JSON_PROPERTY_FIELD = "field";
   private String field;

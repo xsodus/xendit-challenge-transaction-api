@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InvoicingV2InvoicesSend404Response.JSON_PROPERTY_DETAILS
 })
 @JsonTypeName("invoicingV2InvoicesSend404Response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class InvoicingV2InvoicesSend404Response {
   public static final String JSON_PROPERTY_SUBMIT_TIME_UTC = "submitTimeUtc";
   private String submitTimeUtc;

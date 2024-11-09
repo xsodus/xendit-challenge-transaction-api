@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PostRegistrationRequestIntegrationInformation.JSON_PROPERTY_TENANT_CONFIGURATIONS
 })
 @JsonTypeName("postRegistration_request_integrationInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PostRegistrationRequestIntegrationInformation {
   public static final String JSON_PROPERTY_OAUTH2 = "oauth2";
   private List<PostRegistrationRequestIntegrationInformationOauth2Inner> oauth2 = new ArrayList<>();

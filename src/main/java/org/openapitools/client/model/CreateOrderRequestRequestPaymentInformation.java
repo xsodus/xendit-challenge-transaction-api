@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateOrderRequestRequestPaymentInformation.JSON_PROPERTY_E_WALLET
 })
 @JsonTypeName("createOrderRequest_request_paymentInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class CreateOrderRequestRequestPaymentInformation {
   public static final String JSON_PROPERTY_PAYMENT_TYPE = "paymentType";
   private AuthReversalRequestPaymentInformationPaymentType paymentType;

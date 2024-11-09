@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV2PayoutsPost201ResponseMerchantInformation.JSON_PROPERTY_MERCHANT_DESCRIPTOR
 })
 @JsonTypeName("ptsV2PayoutsPost201Response_merchantInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV2PayoutsPost201ResponseMerchantInformation {
   public static final String JSON_PROPERTY_MERCHANT_DESCRIPTOR = "merchantDescriptor";
   private PtsV2PayoutsPost201ResponseMerchantInformationMerchantDescriptor merchantDescriptor;

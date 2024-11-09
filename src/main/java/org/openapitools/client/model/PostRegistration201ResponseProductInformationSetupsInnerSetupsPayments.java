@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PostRegistration201ResponseProductInformationSetupsInnerSetupsPayments.JSON_PROPERTY_SERVICE_FEE
 })
 @JsonTypeName("postRegistration_201_response_productInformationSetups_inner_setups_payments")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PostRegistration201ResponseProductInformationSetupsInnerSetupsPayments {
   public static final String JSON_PROPERTY_CARD_PROCESSING = "cardProcessing";
   private PostRegistration201ResponseProductInformationSetupsInnerSetupsPaymentsCardProcessing cardProcessing;

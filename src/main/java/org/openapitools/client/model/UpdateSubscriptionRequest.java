@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UpdateSubscriptionRequest.JSON_PROPERTY_ORDER_INFORMATION
 })
 @JsonTypeName("updateSubscription_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class UpdateSubscriptionRequest {
   public static final String JSON_PROPERTY_CLIENT_REFERENCE_INFORMATION = "clientReferenceInformation";
   private CreateSubscriptionRequestClientReferenceInformation clientReferenceInformation;

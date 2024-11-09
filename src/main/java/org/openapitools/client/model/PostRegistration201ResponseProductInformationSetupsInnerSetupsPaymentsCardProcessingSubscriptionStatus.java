@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PostRegistration201ResponseProductInformationSetupsInnerSetupsPaymentsCardProcessingSubscriptionStatus.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("postRegistration_201_response_productInformationSetups_inner_setups_payments_cardProcessing_subscriptionStatus")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PostRegistration201ResponseProductInformationSetupsInnerSetupsPaymentsCardProcessingSubscriptionStatus {
   public static final String JSON_PROPERTY_SUBMIT_TIME_UTC = "submitTimeUtc";
   private String submitTimeUtc;

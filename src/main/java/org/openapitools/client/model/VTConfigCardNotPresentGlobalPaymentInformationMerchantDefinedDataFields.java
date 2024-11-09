@@ -54,7 +54,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   VTConfigCardNotPresentGlobalPaymentInformationMerchantDefinedDataFields.JSON_PROPERTY_MERCHANT_DEFINED_DATA5_DISPLAY_ON_RECEIPT
 })
 @JsonTypeName("VTConfig_cardNotPresent_globalPaymentInformation_merchantDefinedDataFields")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class VTConfigCardNotPresentGlobalPaymentInformationMerchantDefinedDataFields {
   public static final String JSON_PROPERTY_DISPLAY_MERCHANT_DEFINED_DATA1 = "displayMerchantDefinedData1";
   private Boolean displayMerchantDefinedData1;

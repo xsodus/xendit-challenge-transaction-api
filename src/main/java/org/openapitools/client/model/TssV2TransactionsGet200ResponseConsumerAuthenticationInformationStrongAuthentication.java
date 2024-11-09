@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TssV2TransactionsGet200ResponseConsumerAuthenticationInformationStrongAuthentication.JSON_PROPERTY_DELEGATED_AUTHENTICATION_EXEMPTION_INDICATOR
 })
 @JsonTypeName("tssV2TransactionsGet200Response_consumerAuthenticationInformation_strongAuthentication")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class TssV2TransactionsGet200ResponseConsumerAuthenticationInformationStrongAuthentication {
   public static final String JSON_PROPERTY_LOW_VALUE_EXEMPTION_INDICATOR = "lowValueExemptionIndicator";
   private String lowValueExemptionIndicator;

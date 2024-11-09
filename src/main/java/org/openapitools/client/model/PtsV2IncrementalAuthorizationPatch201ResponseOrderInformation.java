@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PtsV2IncrementalAuthorizationPatch201ResponseOrderInformation.JSON_PROPERTY_INVOICE_DETAILS
 })
 @JsonTypeName("ptsV2IncrementalAuthorizationPatch201Response_orderInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class PtsV2IncrementalAuthorizationPatch201ResponseOrderInformation {
   public static final String JSON_PROPERTY_AMOUNT_DETAILS = "amountDetails";
   private PtsV2PaymentsPost201ResponseOrderInformationAmountDetails amountDetails;

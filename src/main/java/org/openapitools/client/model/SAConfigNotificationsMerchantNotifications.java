@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SAConfigNotificationsMerchantNotifications.JSON_PROPERTY_CARD_NUMBER_FORMAT
 })
 @JsonTypeName("SAConfig_notifications_merchantNotifications")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class SAConfigNotificationsMerchantNotifications {
   public static final String JSON_PROPERTY_BACKOFFICE_POST_ENABLED = "backofficePostEnabled";
   private Boolean backofficePostEnabled;

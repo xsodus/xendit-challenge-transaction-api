@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   VTConfigCardNotPresentGlobalPaymentInformationBasicInformation.JSON_PROPERTY_DISPLAY_INTERNET
 })
 @JsonTypeName("VTConfig_cardNotPresent_globalPaymentInformation_basicInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class VTConfigCardNotPresentGlobalPaymentInformationBasicInformation {
   public static final String JSON_PROPERTY_DEFAULT_STANDARD_ENTRY_CLASS_CODE = "defaultStandardEntryClassCode";
   private String defaultStandardEntryClassCode;

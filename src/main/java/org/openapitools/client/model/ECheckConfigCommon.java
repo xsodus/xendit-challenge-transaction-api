@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ECheckConfigCommon.JSON_PROPERTY_ACCOUNT_NUMBER
 })
 @JsonTypeName("ECheckConfig_common")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T18:32:10.370382+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
+//@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-09T19:17:21.826843+07:00[Asia/Bangkok]", comments = "Generator version: 7.9.0")
 public class ECheckConfigCommon {
   public static final String JSON_PROPERTY_PROCESSORS = "processors";
   private Map<String, ECheckConfigCommonProcessorsValue> processors = new HashMap<>();
