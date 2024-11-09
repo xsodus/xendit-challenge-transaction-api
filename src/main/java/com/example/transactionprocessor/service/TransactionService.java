@@ -2,6 +2,7 @@ package com.example.transactionprocessor.service;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.TransactionRepository;
 import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,11 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setStatus("AUTHORIZED");
         return transactionRepository.save(transaction);
+    }
+
+    // Implement a function to fetch all transactions by accountId
+    public List<Transaction> getTransactionsByAccountId(Long accountId) {
+        return transactionRepository.findByAccountId(accountId);
     }
 
     @Async("asyncExecutor")

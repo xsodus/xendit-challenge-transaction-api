@@ -5,8 +5,10 @@ import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.service.TransactionService;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController implements PaymentApi {
     @Autowired
     private TransactionService transactionService;
+
+    @Override
     @PostMapping(
             value = "/{accountId}",
             produces = "application/json",
@@ -68,6 +72,15 @@ public class PaymentController implements PaymentApi {
         // Asynchronously settle the payment
         transactionService.settleTransaction(transaction.getId());
         return ResponseEntity.ok(transaction);
+    }
+
+    @Override
+    @GetMapping(
+            value = "/{accountId}",
+            produces = "application/json"
+    )
+    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId) {
+        return ResponseEntity.ok(transactionService.getTransactionsByAccountId(accountId));
     }
 
 }
