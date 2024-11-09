@@ -1,4 +1,4 @@
-package com.xsodus.az.app_service.backend;
+package com.example.transactionprocessor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

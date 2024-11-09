@@ -8,9 +8,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.xsodus.az.app_service</groupId>
-	<artifactId>azure_spring_boot</artifactId>
+	<artifactId>transaction_processor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>azure_spring_boot</name>
+	<name>transaction_processor</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -60,6 +60,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
+        </dependency>
 	</dependencies>
 
 	<build>

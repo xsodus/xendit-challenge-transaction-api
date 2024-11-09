@@ -1,4 +1,4 @@
-package com.xsodus.az.app_service.backend.api;
+package com.example.transactionprocessor.api;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

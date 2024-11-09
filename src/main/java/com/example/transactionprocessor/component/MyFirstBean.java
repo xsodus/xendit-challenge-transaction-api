@@ -1,4 +1,4 @@
-package com.xsodus.az.app_service.backend.component;
+package com.example.transactionprocessor.component;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
