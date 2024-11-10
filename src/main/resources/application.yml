@@ -13,6 +13,8 @@ logging:
     com.example.transactionprocessor: DEBUG
 
 cyber-source:
+  host: apitest.cybersource.com
+  base-url: https://apitest.cybersource.com
   org-id: akkapon_org_id_1731121879
   api-key:  bff118c4-0c0c-43e5-8800-1d1c807d0798
   api-secret: wtGtO1vpZ90w/UdaP69sIB3CZ528pxTTUYWhtfTyY1U=

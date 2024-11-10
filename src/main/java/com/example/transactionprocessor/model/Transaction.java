@@ -22,6 +22,10 @@ public class Transaction {
     private Long accountId;
     private BigDecimal amount = BigDecimal.ZERO;
     private String paymentTransactionId;
+
+    // Sometime, the amount authorized can be partial of the initial amount
+    // So, we need this field to keep track of the authorized amount
+    private BigDecimal authorizedAmount = BigDecimal.ZERO;
     private String status; // PENDING, AUTHORIZED, SETTLED
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
