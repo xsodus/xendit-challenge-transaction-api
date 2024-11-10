@@ -130,6 +130,7 @@ public class TransactionService {
                 e.printStackTrace();
             } finally {
                 try {
+                    // Retry with exponential backoff delay
                     Thread.sleep(calculateExponentialBackoffDelay(retryCount++));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
