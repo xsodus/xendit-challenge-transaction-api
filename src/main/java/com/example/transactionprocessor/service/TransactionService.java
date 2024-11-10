@@ -4,25 +4,18 @@ import Api.PaymentsApi;
 import Invokers.ApiException;
 import Model.CreatePaymentRequest;
 import Model.PtsV2PaymentsPost201Response;
-import Model.Ptsv2paymentsClientReferenceInformation;
-import Model.Ptsv2paymentsProcessingInformation;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.mapper.PaymentMapper;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.AccountRepository;
 import com.example.transactionprocessor.repository.TransactionRepository;
-import com.example.transactionprocessor.runtime.error.CyberSourceApiErrorHandler;
 import com.example.transactionprocessor.runtime.error.exception.CyberSourceError;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.http.HttpStatus;
 
 
 @Slf4j
