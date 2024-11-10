@@ -5,33 +5,32 @@ This repository contains the Transaction Processor API built with Spring Boot.
 ## Prerequisites
 
 - Java 17
-- Maven 3.6+
-- H2 Database (in-memory)
+- Maven 3.9.9 
 
 ## Running the Application
 
 1. **Clone the repository:**
 
     ```sh
-    git clone <repository-url>
-    cd transaction_processor
+    git clone git@github.com:xsodus/xendit-challenge-transaction-api.git
+    cd xendit-challenge-transaction-api
     ```
 
 2. **Build the project:**
 
     ```sh
-    mvn clean install
+    ./mvnw clean install
     ```
 
 3. **Run the application:**
 
     ```sh
-    mvn spring-boot:run
+    ./mvnw spring-boot:run
     ```
 
     The application will start on [`http://localhost:8080`](src/main/java/com/example/transactionprocessor/api/AccountApi.java ).
 
-## Accessing Swagger UI
+## API Testing on Swagger UI page
 
 Swagger UI is available to test the API endpoints.
 
@@ -50,7 +49,6 @@ Swagger UI is available to test the API endpoints.
     ```json
     {
       "accountId": 123,
-      "accountName": "John Doe",
       "balance": 1000.00
     }
     ```
@@ -146,7 +144,6 @@ To implement integration tests for the `PaymentController` class:
 To implement unit tests for the `TransactionService` class:
 
 1. **Setup the test environment:**
-    - Use `@RunWith(MockitoJUnitRunner.class)` to enable Mockito annotations.
     - Use `@InjectMocks` to inject the `TransactionService` instance.
     - Use `@Mock` to mock dependencies like `TransactionRepository`, `AccountRepository`, and CyberSource SDK clients.
 
@@ -160,7 +157,7 @@ To implement unit tests for the `TransactionService` class:
 To run the tests, execute the following command:
 
 ```sh
-mvn test
+./mvnw test
 ```
 
 This will run all the unit tests and integration tests in the project.
@@ -171,11 +168,7 @@ The CyberSource SDK is used to interact with the CyberSource payment gateway. Yo
 
 - [CyberSource SDK for Java](https://github.com/CyberSource/cybersource-rest-client-java)
 
-To include the CyberSource SDK in your project, add the following dependency to your 
-
-pom.xml
-
-:
+To include the CyberSource SDK in your project, add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
