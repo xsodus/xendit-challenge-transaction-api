@@ -37,4 +37,10 @@ public class ProcessPaymentRequestDTO {
     @NonNull
     private BillingDetail billingDetail;
 
+    //@NonNull
+    //private ClientReferenceInformation clientReferenceInformation;
+
+    //@NonNull
+    //private PaymentProcessingInformation paymentProcessingInformation;
+
 }

@@ -2,6 +2,7 @@ package com.example.transactionprocessor.api;
 
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.model.Transaction;
+import com.example.transactionprocessor.runtime.error.exception.CyberSourceError;
 import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,6 +20,6 @@ public interface PaymentApi {
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found", content = @Content)})
     ResponseEntity<Transaction> processPayment(ProcessPaymentRequestDTO processPaymentRequestDTO)
-            throws InvalidInputError;
+            throws InvalidInputError, CyberSourceError;
 
 }

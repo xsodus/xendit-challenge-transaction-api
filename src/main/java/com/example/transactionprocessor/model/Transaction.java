@@ -11,19 +11,20 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
 @Table(indexes = @Index(columnList = "accountId"))
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "transaction-id-generator")
+    @GenericGenerator(name = "transaction-id-generator",
+            strategy = "com.example.transactionprocessor.jpa.custom_generator.TransactionIdGenerator")
     private Long id;
     private Long accountId;
     private BigDecimal amount = BigDecimal.ZERO;
     private String currency;
-
-    private String paymentTransactionId;
 
     // Sometime, the amount authorized can be partial of the initial amount
     // So, we need this field to keep track of the authorized amount

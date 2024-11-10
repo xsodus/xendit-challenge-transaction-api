@@ -3,6 +3,7 @@ import com.example.transactionprocessor.api.PaymentApi;
 import com.example.transactionprocessor.dto.request.CreditCardDetail;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.model.Transaction;
+import com.example.transactionprocessor.runtime.error.exception.CyberSourceError;
 import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
 import com.example.transactionprocessor.service.AccountService;
 import com.example.transactionprocessor.service.TransactionService;
@@ -31,7 +32,8 @@ public class PaymentController implements PaymentApi {
             consumes = "application/json"
     )
     public ResponseEntity<Transaction> processPayment(@RequestBody @Valid
-                                      ProcessPaymentRequestDTO processPaymentRequestDTO) throws InvalidInputError {
+                                      ProcessPaymentRequestDTO processPaymentRequestDTO)
+            throws InvalidInputError, CyberSourceError {
         // TODO : Validate this logic with unit test
         // Valid the accountId in processPaymentRequestDTO does exist in the system
         if (!accountService.getAccountById(processPaymentRequestDTO.getAccountId()).isPresent()) {

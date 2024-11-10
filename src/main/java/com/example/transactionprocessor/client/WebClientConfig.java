@@ -52,7 +52,7 @@ import reactor.netty.resources.ConnectionProvider;
 @Slf4j
 @Configuration
 public class WebClientConfig {
-
+    /*
     @Value("${cyber-source.host}")
     private String host;
 
@@ -153,12 +153,7 @@ public class WebClientConfig {
         }
     }
 
-    /**
-     * Generate the signature for the request
-     *
-     * @param signatureParams
-     * @return
-     */
+
     public static String generateSignatureFromParams(String keyString,
                                                      String signatureParams)
             throws InvalidKeyException, NoSuchAlgorithmException {
@@ -173,11 +168,7 @@ public class WebClientConfig {
 
 
 
-    /**
-     * Generate the hash for the request payload
-     *
-     * @return
-     */
+
     private ExchangeFilterFunction buildHeaders() {
         return (ClientRequest clientRequest, ExchangeFunction next) -> {
             var requestBody = Optional.of(clientRequest.body());
@@ -230,11 +221,7 @@ public class WebClientConfig {
         };
     }
 
-    /**
-     * Log the request and response
-     *
-     * @return
-     */
+
     private ExchangeFilterFunction logRequestAndResponse() {
         return (ClientRequest clientRequest, ExchangeFunction next) -> {
             if (log.isDebugEnabled()) {
@@ -313,4 +300,5 @@ public class WebClientConfig {
 
         return headerMap;
     }
+    */
 }
