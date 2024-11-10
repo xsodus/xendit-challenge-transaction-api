@@ -5,10 +5,13 @@ import static java.util.Objects.nonNull;
 import static net.logstash.logback.argument.StructuredArguments.fields;
 
 import com.example.transactionprocessor.client.model.RequestResponseDetails;
+import com.example.transactionprocessor.config.JacksonConfig;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.epoll.EpollChannelOption;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -26,6 +29,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.extern.slf4j.Slf4j;
+import org.openapitools.client.model.CreatePaymentRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -68,10 +72,13 @@ public class WebClientConfig {
 
     private final ObjectMapper cyberSourceMapper;
 
-    public WebClientConfig() {
+    public WebClientConfig(
+            @Qualifier(JacksonConfig.SERVER_OBJECT_MAPPER) ObjectMapper serverMapper,
+            @Qualifier(JacksonConfig.CYBERSOURCE_OBJECT_MAPPER) ObjectMapper cyberSourceMapper
+    ) {
         // Initialize the object mapper
-        this.serverMapper = new ObjectMapper();
-        this.cyberSourceMapper = new ObjectMapper();
+        this.serverMapper = serverMapper;
+        this.cyberSourceMapper = cyberSourceMapper;
     }
 
 
@@ -173,43 +180,50 @@ public class WebClientConfig {
      */
     private ExchangeFilterFunction buildHeaders() {
         return (ClientRequest clientRequest, ExchangeFunction next) -> {
-            var requestBody = Optional.of(clientRequest.body().toString());
+            var requestBody = Optional.of(clientRequest.body());
             if (requestBody.isPresent()) {
-                var hashedPayload = hashPayload(requestBody.get());
+               // String jsonPayload = ((CreatePaymentRequest) requestBody.get()).toString().;
+
+                //log.debug("Request Payload {}", jsonPayload);
+                var digest = hashPayload(requestBody.get().toString());
+                //var digest = "SHA-256=1wk5Hls1qcbZtjYDldGyl3B2i92v4rOqXyx6twRboEs=";
                 // Get the current date in this example format
                 // Sun, 10 Nov 2024 03:05:43 GMT
                 var currentDate = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.RFC_1123_DATE_TIME);
-
+                //var currentDate = "Sun, 10 Nov 2024 04:42:24 GMT";
                 var apiPath = clientRequest.url().getPath();
 
                 var signatureParams = "host: apitest.cybersource.com\n" +
-                        "digest: " + hashedPayload + "\n" +
+                        "digest: " + digest + "\n" +
                         "v-c-merchant-id: " + orgId + "\n" +
                         "v-c-date: " + currentDate + "\n" +
                         "request-target: " + apiPath;
 
+                String signatureHash = null;
                 try {
-                    var signatureHash = generateSignatureFromParams(apiSecret, signatureParams);
-
-                    // Generate singature string following this format:
-                    // Signature:"keyid:"[shared secret key]",algorithm="[encryption algoritm]",headers="field1" "field2" "field3" "etc.", signature="[signature hash]"
-                    var signature = "keyid=\"" +
-                            apiKey +
-                            "\",algorithm=\"HmacSHA256 \",headers=\"host digest v-c-merchant-id v-c-date request-target\",signature=\"" +
-                            signatureHash + "\"";
-                    clientRequest = ClientRequest.from(clientRequest)
-                            .header("host", host)
-                            .header("digest", hashedPayload)
-                            .header("v-c-merchant-id", orgId)
-                            .header("v-c-date", currentDate)
-                            .header("request-target", apiPath)
-                            .header("signature", signature)
-                            .build();
+                    signatureHash = generateSignatureFromParams(apiSecret, signatureParams);
                 } catch (InvalidKeyException e) {
                     throw new RuntimeException(e);
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
+                //var signatureHash = "iJta9F6/okFttYHwSf4Axt8HswMYzC/oDSjCnUhDc3Y=";
+                // Generate singature string following this format:
+                // Signature:"keyid:"[shared secret key]",algorithm="[encryption algoritm]",headers="field1" "field2" "field3" "etc.", signature="[signature hash]"
+                var signature = "keyid=\"" +
+                        "b9e5fab9-2d75-4ddb-92f1-ac8639347648" +
+                        "\", algorithm=\"HmacSHA256\", headers=\"host digest v-c-merchant-id v-c-date request-target\" ,signature=\"" +
+                        signatureHash + "\"";
+                //var signature = "keyid=\"b9e5fab9-2d75-4ddb-92f1-ac8639347648\", algorithm=\"HmacSHA256\", headers=\"host v-c-date request-target digest v-c-merchant-id\", signature=\"iJta9F6/okFttYHwSf4Axt8HswMYzC/oDSjCnUhDc3Y=\"";
+                clientRequest = ClientRequest.from(clientRequest)
+                        .header("host", host)
+                        .header("digest", digest)
+                        //.header("v-c-merchant-id", orgId)
+                        .header("v-c-merchant-id", "testrest")
+                        .header("v-c-date", currentDate)
+                        .header("request-target", apiPath)
+                        .header("signature", signature)
+                        .build();
 
             }
             return next.exchange(clientRequest);
@@ -230,6 +244,9 @@ public class WebClientConfig {
 
                 details.setRequestMethod(clientRequest.method().name());
                 details.setRequestUrl(clientRequest.url().toString());
+
+                log.debug("Request Header {}",  clientRequest.headers());
+                log.debug("Request Payload {}",  clientRequest.body());
 
 
                 return next.exchange(clientRequest).flatMap(

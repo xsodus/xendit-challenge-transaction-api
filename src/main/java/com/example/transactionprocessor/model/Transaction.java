@@ -21,6 +21,8 @@ public class Transaction {
     private Long id;
     private Long accountId;
     private BigDecimal amount = BigDecimal.ZERO;
+    private String currency;
+
     private String paymentTransactionId;
 
     // Sometime, the amount authorized can be partial of the initial amount

@@ -74,7 +74,7 @@ public class PaymentController implements PaymentApi {
         }
 
         // Authorize the payment
-        Transaction transaction = transactionService.authorizeTransaction(processPaymentRequestDTO.getAccountId(), processPaymentRequestDTO.getAmount());
+        Transaction transaction = transactionService.authorizeTransaction(processPaymentRequestDTO);
         // Asynchronously settle the payment
         transactionService.settleTransaction(transaction.getId());
         return ResponseEntity.ok(transaction);

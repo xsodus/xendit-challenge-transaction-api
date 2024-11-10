@@ -1,15 +1,22 @@
 package com.example.transactionprocessor.service;
+import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
+import com.example.transactionprocessor.mapper.PaymentMapper;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.AccountRepository;
 import com.example.transactionprocessor.repository.TransactionRepository;
+import com.example.transactionprocessor.runtime.error.CyberSourceApiErrorHandler;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.client.api.CaptureApi;
 import org.openapitools.client.api.PaymentsApi;
+import org.openapitools.client.model.CreatePaymentRequest;
+import org.openapitools.client.model.PtsV2PaymentsPost201Response2;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.http.HttpStatus;
+
 
 @Slf4j
 @Service
@@ -23,23 +30,36 @@ public class TransactionService {
 
     private final CaptureApi captureApi;
 
+    private final PaymentMapper paymentMapper;
+
     public TransactionService(TransactionRepository transactionRepository,
                               AccountRepository accountRepository,
                               PaymentsApi paymentsApi,
-                              CaptureApi captureApi
+                              CaptureApi captureApi,
+                                PaymentMapper paymentMapper
     ) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.paymentsApi = paymentsApi;
         this.captureApi = captureApi;
+        this.paymentMapper = paymentMapper;
     }
 
-    public Transaction authorizeTransaction(Long accountId, BigDecimal amount) {
-        //paymentsApi.createPaymentWithResponseSpec();
+    public Transaction authorizeTransaction(ProcessPaymentRequestDTO processPaymentRequestDTO) {
+        // Create a new resquest with CreatePaymentRequest that maps with processPaymentRequestDTO
+
+        var response = paymentsApi.createPaymentWithResponseSpec(paymentMapper.toCreatePaymentRequestForSimpleAuthorization(processPaymentRequestDTO))
+                .onStatus(httpStatusCode -> httpStatusCode.is4xxClientError() , CyberSourceApiErrorHandler::handleCyberSourceResponse)
+                .bodyToMono(PtsV2PaymentsPost201Response2.class)
+                .block();
+
         Transaction transaction = new Transaction();
-        transaction.setAccountId(accountId);
-        transaction.setAmount(amount);
-        transaction.setStatus("AUTHORIZED");
+        transaction.setAccountId(processPaymentRequestDTO.getAccountId());
+        transaction.setAmount(processPaymentRequestDTO.getAmount());
+        transaction.setAuthorizedAmount(new BigDecimal(response.getOrderInformation().getAmountDetails().getTotalAmount()));
+        transaction.setCurrency(processPaymentRequestDTO.getCurrency());
+        transaction.setStatus(response.getStatus());
+
         return transactionRepository.save(transaction);
     }
 
