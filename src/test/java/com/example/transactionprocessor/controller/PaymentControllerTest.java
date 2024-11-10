@@ -48,7 +48,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void testProcessPaymentSuccess() throws Exception {
+    public void testProcessPaymentSuccess()  {
         // Load request body from file
         var payload = fileReader.getRequest("Post_Process_Payment_Success_200_ok.json");
         var expectedResponse = fileReader.getResponse("Post_Process_Payment_Success_200_ok.json");
