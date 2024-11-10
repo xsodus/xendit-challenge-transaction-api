@@ -182,7 +182,3 @@ To include the CyberSource SDK in your project, add the following dependency to 
 
 - **Configuration:** The application configuration is located in [`src/main/resources/application.yml`](src/main/resources/application.yml ).
 - **Logging:** Logs are configured to be written to the console and can be adjusted in the [`src/main/resources/application.yml`](src/main/resources/application.yml ) file.
-
-For any issues or contributions, please open a pull request or issue on the repository.
-
-Similar code found with 2 license types
