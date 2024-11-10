@@ -19,8 +19,6 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @Configuration
 public class JacksonConfig {
 
-    public static final String CYBERSOURCE_OBJECT_MAPPER = "cyberSourceObjectMapper";
-
     public static final String SERVER_OBJECT_MAPPER = "serverObjectMapper";
 
     /**
@@ -40,23 +38,6 @@ public class JacksonConfig {
         mapper.configOverride(List.class).setSetterInfo(
             JsonSetter.Value.forContentNulls(Nulls.AS_EMPTY)
         );
-
-        return mapper;
-    }
-
-    /**
-     * Used with the webclient to make calls to vitality. Uses a custom deserializer which deserializes null strings
-     * ("null") as actual nulls.
-     */
-    @Bean(CYBERSOURCE_OBJECT_MAPPER)
-    public ObjectMapper clientObjectMapper(Jackson2ObjectMapperBuilder builder) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModules(new Jdk8Module(), new JavaTimeModule(), new JsonNullableModule());
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL);
-        mapper.setSerializationInclusion(Include.NON_NULL);
-        mapper.enable(Feature.WRITE_BIGDECIMAL_AS_PLAIN);
 
         return mapper;
     }

@@ -1,0 +1,21 @@
+{
+  "accountId": 123,
+  "amount": 102.21,
+  "currency": "USD",
+  "creditCardDetail": {
+    "number": "4111111111111111",
+    "expirationMonth": "12",
+    "expirationYear": "2031"
+  },
+  "billingDetail": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "address1": "1 Market St",
+    "locality": "san francisco",
+    "administrativeArea": "CA",
+    "postalCode": "94105",
+    "country": "US",
+    "email": "invalid-email",
+    "phoneNumber": "4158880000"
+  }
+}

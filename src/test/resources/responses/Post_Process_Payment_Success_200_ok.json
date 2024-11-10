@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "accountId": 123,
+  "amount": 102.21,
+  "currency": "USD",
+  "referencePaymentId": "${json-unit.ignore}",
+  "authorizedAmount": 102.21,
+  "status": "AUTHORIZED_PENDING_REVIEW",
+  "createdAt": "${json-unit.ignore}",
+  "updatedAt": "${json-unit.ignore}"
+}

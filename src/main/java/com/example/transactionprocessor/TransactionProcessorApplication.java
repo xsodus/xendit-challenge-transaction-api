@@ -8,7 +8,8 @@ import java.util.concurrent.Executor;
 @SpringBootApplication
 @EnableAsync
 public class TransactionProcessorApplication {
-    public static void main(String[] args) { SpringApplication.run(TransactionProcessorApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(TransactionProcessorApplication.class, args);
     }
     @Bean(name = "asyncExecutor")
     public Executor asyncExecutor() {

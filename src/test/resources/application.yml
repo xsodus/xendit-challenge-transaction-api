@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: backend
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    platform: h2
+    initialization-mode: always
+
+logging:
+  level:
+    com.example.transactionprocessor: DEBUG
+
+cyber-source:
+  merchant-id: akkapon_org_id_1731121879
+  merchant-key-id: bff118c4-0c0c-43e5-8800-1d1c807d0798
+  merchant-key-secret: wtGtO1vpZ90w/UdaP69sIB3CZ528pxTTUYWhtfTyY1U=
+  authentication-type: http_signature
+  run-environment: apitest.cybersource.com
+  use-meta-key: false
+  enable-log: true
+  log-directory: "log"
+  log-filename: "cybersource.log"
+  log-maximumsize: "5M"
