@@ -115,6 +115,7 @@ public class TransactionService {
                         break;
                     default:
                         log.debug("Transaction is not authorized yet!: {}", transaction);
+                        return;
                 }
 
             } catch (ApiException e) {

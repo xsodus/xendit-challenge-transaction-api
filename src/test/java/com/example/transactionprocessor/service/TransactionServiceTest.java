@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -106,24 +107,9 @@ public class TransactionServiceTest {
 
         response.getOrderInformation().getAmountDetails().setAuthorizedAmount("100.00");
 
-
-
         when(paymentMapper.toCreatePaymentRequestForSimpleAuthorization(any())).thenReturn(createPaymentRequest);
         when(paymentsApi.createPayment(any())).thenReturn(response);
-
-        // Return a new mocked Transaction that the same as the one that is passed in
-        when(transactionRepository.save(any())).thenAnswer(invocation -> {
-            Transaction transaction = invocation.getArgument(0);
-            Transaction mockedTransaction = new Transaction();
-            mockedTransaction.setReferencePaymentId(transaction.getReferencePaymentId());
-            mockedTransaction.setStatus(transaction.getStatus());
-            mockedTransaction.setAuthorizedAmount(transaction.getAuthorizedAmount());
-            mockedTransaction.setAccountId(transaction.getAccountId());
-            mockedTransaction.setId(transaction.getId());
-            mockedTransaction.setCreatedAt(transaction.getCreatedAt());
-            mockedTransaction.setUpdatedAt(transaction.getUpdatedAt());
-            return mockedTransaction;
-        });
+        when(transactionRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
 
         Transaction transaction = transactionService.authorizeTransaction(requestDTO);
@@ -189,5 +175,44 @@ public class TransactionServiceTest {
         verify(transactionRepository, times(1)).save(transaction);
         verify(accountRepository, times(1)).addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
         assertEquals("SETTLED", transaction.getStatus());
+    }
+
+    @Test
+    public void testSettleTransactionWithClientError() throws ApiException {
+        Transaction transaction = new Transaction();
+        transaction.setId(1L);
+        transaction.setStatus("AUTHORIZED");
+        transaction.setReferencePaymentId("12345");
+        transaction.setAuthorizedAmount(new BigDecimal("100.00"));
+
+        when(transactionRepository.findById(1L)).thenReturn(Optional.of(transaction));
+
+        // Mock the call to throw ApiException with status 4xx
+        doThrow(new ApiException(400, "Bad Request"))
+            .when(captureApi).capturePayment(any(), any());
+
+        assertThrows(CyberSourceError.class, () -> {
+            transactionService.settleTransaction(1L);
+        });
+
+        verify(transactionRepository, never()).save(transaction);
+        verify(accountRepository, never()).addAmountToBalance(any(), any());
+    }
+
+    @Test
+    public void testSettleTransactionWithInvalidStatus() throws CyberSourceError, ApiException {
+        Transaction transaction = new Transaction();
+        transaction.setId(1L);
+        transaction.setStatus("DECLINED");
+        transaction.setReferencePaymentId("12345");
+        transaction.setAuthorizedAmount(new BigDecimal("100.00"));
+
+        when(transactionRepository.findById(1L)).thenReturn(Optional.of(transaction));
+
+        transactionService.settleTransaction(1L);
+
+        verify(captureApi, never()).capturePayment(any(), any());
+        verify(transactionRepository, never()).save(transaction);
+        verify(accountRepository, never()).addAmountToBalance(any(), any());
     }
 }
