@@ -2,7 +2,10 @@ package com.example.transactionprocessor.service;
 import Api.CaptureApi;
 import Api.PaymentsApi;
 import Invokers.ApiException;
+import Model.CreatePaymentRequest;
 import Model.PtsV2PaymentsPost201Response;
+import Model.Ptsv2paymentsClientReferenceInformation;
+import Model.Ptsv2paymentsProcessingInformation;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.mapper.PaymentMapper;
 import com.example.transactionprocessor.model.Transaction;
@@ -11,11 +14,11 @@ import com.example.transactionprocessor.repository.TransactionRepository;
 import com.example.transactionprocessor.runtime.error.CyberSourceApiErrorHandler;
 import com.example.transactionprocessor.runtime.error.exception.CyberSourceError;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.extern.slf4j.Slf4j;
 
-import org.openapitools.client.model.CreatePaymentRequest;
 import org.openapitools.client.model.PtsV2PaymentsPost201Response2;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
@@ -37,6 +40,11 @@ public class TransactionService {
 
     private final PaymentMapper paymentMapper;
 
+    private static final long BASE_DELAY = 1000; // 1 second
+    private static final long MAX_DELAY = 60000; // 60 seconds
+
+
+
     public TransactionService(TransactionRepository transactionRepository,
                               AccountRepository accountRepository,
                               PaymentsApi paymentsApi,
@@ -51,21 +59,24 @@ public class TransactionService {
     }
 
     public Transaction authorizeTransaction(ProcessPaymentRequestDTO processPaymentRequestDTO) throws CyberSourceError {
+        CreatePaymentRequest requestObj = paymentMapper.toCreatePaymentRequestForSimpleAuthorization(processPaymentRequestDTO);
 
-        // Create a new transaction to generate the unique transactionId before sending the request to CyberSource
-        Transaction transaction = new Transaction();
-        transaction.setAccountId(processPaymentRequestDTO.getAccountId());
-        transaction.setAmount(processPaymentRequestDTO.getAmount());
-        transaction.setCurrency(processPaymentRequestDTO.getCurrency());
-        transaction = transactionRepository.save(transaction);
 
         // Create a new request with CreatePaymentRequest that maps with processPaymentRequestDTO
         PtsV2PaymentsPost201Response response = null;
         try {
-            response = paymentsApi.createPayment(paymentMapper.toCreatePaymentRequestForSimpleAuthorization(processPaymentRequestDTO));
+            response = paymentsApi.createPayment(requestObj);
+            log.debug("Response from CyberSource Payment API: {}", response);
         } catch (ApiException e) {
             throw new CyberSourceError(String.valueOf(e.getCode()),e.getMessage());
         }
+
+        Transaction transaction = new Transaction();
+        transaction.setAccountId(processPaymentRequestDTO.getAccountId());
+        transaction.setAmount(processPaymentRequestDTO.getAmount());
+        transaction.setCurrency(processPaymentRequestDTO.getCurrency());
+        // Set the reference payment id from CyberSource which is auto-generated
+        transaction.setReferencePaymentId(response.getId());
 
         // Update the transaction with the response from CyberSource
         transaction.setAuthorizedAmount(new BigDecimal(response.getOrderInformation().getAmountDetails().getAuthorizedAmount()));
@@ -80,18 +91,56 @@ public class TransactionService {
     }
 
     @Async("asyncExecutor")
-    public void settleTransaction(Long transactionId) {
-        try {
-            // Simulate delay for settlement
-            //captureApi.capturePaymentWithResponseSpec();
-            Transaction transaction = transactionRepository.findById(transactionId).orElseThrow();
-            transaction.setStatus("SETTLED");
-            transactionRepository.save(transaction);
-            // Update the balance of the account.
-            accountRepository.addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
-        } catch (Exception e) {
-            log.error("Error while settling transaction!");
-            e.printStackTrace();
+    public void settleTransaction(Long transactionId) throws CyberSourceError {
+        Transaction transaction = transactionRepository.findById(transactionId).orElseThrow();
+        int retryCount = 0;
+        while (!"SETTLED".equals(transaction.getStatus())) {
+            try {
+                log.info("Transaction is being captured!: {}", transactionId);
+                // Simulate delay for settlement
+                switch (transaction.getStatus()) {
+                    case "AUTHORIZED":
+                    case "PARTIAL_AUTHORIZED":
+                    case "AUTHORIZED_PENDING_REVIEW":
+                        var request = paymentMapper.toCapturePaymentRequest(transaction);
+                        var response = captureApi.capturePayment(request, transaction.getReferencePaymentId());
+                        log.debug("Transaction is captured!: {}", response);
+
+                        transaction.setStatus("SETTLED");
+                        transaction = transactionRepository.save(transaction);
+
+                        // Update the balance of the account.
+                        accountRepository.addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
+
+                        log.debug("Transaction is settled!: {}", transaction);
+                        break;
+                    default:
+                        log.debug("Transaction is not authorized yet!: {}", transaction);
+                }
+
+            } catch (ApiException e) {
+                var status = e.getCode();
+                if(status < 500) {
+                    // Stop the process because the current transaction is not valid
+                    throw new CyberSourceError(String.valueOf(status), e.getMessage());
+                }
+                log.error("An error occurred while settling transaction with CyberSource API : {}", e.getMessage());
+                e.printStackTrace();
+            } catch (Exception e) {
+                log.error("Error while settling transaction!");
+                e.printStackTrace();
+            } finally {
+                try {
+                    Thread.sleep(calculateExponentialBackoffDelay(retryCount++));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+    }
+
+    private long calculateExponentialBackoffDelay(int retryCount) {
+        long delay = BASE_DELAY * (1L << retryCount);
+        return Math.min(delay, MAX_DELAY);
     }
 }

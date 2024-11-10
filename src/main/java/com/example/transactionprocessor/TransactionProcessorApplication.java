@@ -10,9 +10,11 @@ import java.util.concurrent.Executor;
 public class TransactionProcessorApplication {
     public static void main(String[] args) { SpringApplication.run(TransactionProcessorApplication.class, args);
     }
-    @Bean(name = "asyncExecutor") public Executor asyncExecutor() {
+    @Bean(name = "asyncExecutor")
+    public Executor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor(); executor.setCorePoolSize(2);
         executor.setMaxPoolSize(2);
         executor.setQueueCapacity(500); executor.setThreadNamePrefix("AsyncThread-"); executor.initialize();
-        return executor; }
+        return executor;
+    }
 }

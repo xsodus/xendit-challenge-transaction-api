@@ -18,14 +18,13 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(indexes = @Index(columnList = "accountId"))
 public class Transaction {
     @Id
-    @GeneratedValue(generator = "transaction-id-generator")
-    @GenericGenerator(name = "transaction-id-generator",
-            strategy = "com.example.transactionprocessor.jpa.custom_generator.TransactionIdGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long accountId;
     private BigDecimal amount = BigDecimal.ZERO;
     private String currency;
 
+    private String referencePaymentId;
     // Sometime, the amount authorized can be partial of the initial amount
     // So, we need this field to keep track of the authorized amount
     private BigDecimal authorizedAmount = BigDecimal.ZERO;
