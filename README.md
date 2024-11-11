@@ -5,7 +5,8 @@ This repository contains the Transaction Processor API built with Spring Boot.
 ## Prerequisites
 
 - Java 17
-- Maven 3.9.9 
+- Maven 3.9.9
+- H2 Database (in-memory)
 
 ## Running the Application
 
@@ -29,8 +30,10 @@ This repository contains the Transaction Processor API built with Spring Boot.
     ```
 
     The application will start on [`http://localhost:8080`](src/main/java/com/example/transactionprocessor/api/AccountApi.java ).
+    
+    NOTES: Change the main command to `mvnw.cmd` if you run on Windows machine. 
 
-## API Testing on Swagger UI page
+## Accessing Swagger UI
 
 Swagger UI is available to test the API endpoints.
 
@@ -111,11 +114,13 @@ Swagger UI is available to test the API endpoints.
 
 To authorize a payment, the `processPayment` method in the `PaymentController` is used. This method validates the payment details and calls the `authorizeTransaction` method in the `TransactionService`.
 
-The `authorizeTransaction` method creates a payment request using the CyberSource SDK and sends it to the CyberSource API.
+We implement payment authorization based on Simple Authorization (Internet) and call the `/pts/v2/payments` endpoint from the CyberSource SDK to authorize the payment.
 
 ### Capturing a Payment
 
-To capture a payment, the `settleTransaction` method in the `TransactionService` is used. This method captures the authorized payment by sending a capture request to the CyberSource API.
+To capture a payment, the `settleTransaction` method in the `TransactionService` is used. This method captures the authorized payment by calling the `/pts/v2/payments/{id}/captures` endpoint from the CyberSource SDK.
+
+For more details on the CyberSource API, you can refer to the [CyberSource API Reference](https://developer.cybersource.com/api-reference-assets/index.html#payments).
 
 ## Running Tests
 
