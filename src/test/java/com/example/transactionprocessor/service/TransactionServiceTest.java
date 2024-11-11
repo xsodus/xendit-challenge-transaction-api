@@ -216,4 +216,46 @@ public class TransactionServiceTest {
         verify(transactionRepository, never()).save(transaction);
         verify(accountRepository, never()).addAmountToBalance(any(), any());
     }
+
+    @Test
+    public void testAuthorizeTransactionThrowsCyberSourceError() throws ApiException {
+        Long accountId = 1L;
+        BigDecimal amount = new BigDecimal("100.00");
+        String currency = "USD";
+        String cardNumber = "4111111111111111";
+        String cardExpirationMonth = "12";
+        String cardExpirationYear = "2023";
+        CreditCardDetail creditCardDetail = new CreditCardDetail(cardNumber, cardExpirationMonth, cardExpirationYear);
+
+        String firstName = "John";
+        String lastName = "Doe";
+        String email = "akkapondev@gmail.com";
+        String phoneNumber = "1234567890";
+        String address1 = "123 Main";
+        String locality = "San Francisco";
+        String administrativeArea = "CA";
+        String postalCode = "94105";
+        String country = "US";
+        BillingDetail billingDetail = new BillingDetail(
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                address1,
+                locality,
+                administrativeArea,
+                postalCode,
+                country);
+
+        ProcessPaymentRequestDTO requestDTO = new ProcessPaymentRequestDTO(accountId, amount, currency, creditCardDetail, billingDetail);
+
+        CreatePaymentRequest createPaymentRequest = new CreatePaymentRequest();
+
+        when(paymentMapper.toCreatePaymentRequestForSimpleAuthorization(any())).thenReturn(createPaymentRequest);
+        when(paymentsApi.createPayment(any())).thenThrow(new ApiException(500, "Internal Server Error"));
+
+        assertThrows(CyberSourceError.class, () -> {
+            transactionService.authorizeTransaction(requestDTO);
+        });
+    }
 }

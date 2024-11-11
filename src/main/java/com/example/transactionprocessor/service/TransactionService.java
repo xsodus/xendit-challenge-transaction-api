@@ -96,7 +96,7 @@ public class TransactionService {
                     case "AUTHORIZED_PENDING_REVIEW":
                         var request = paymentMapper.toCapturePaymentRequest(transaction);
                         var response = captureApi.capturePayment(request, transaction.getReferencePaymentId());
-                        log.debug("Transaction is captured!: {}", response);
+                        log.debug("The transaction is captured!: {}", response);
 
                         transaction.setStatus("SETTLED");
                         transaction = transactionRepository.save(transaction);
@@ -104,10 +104,10 @@ public class TransactionService {
                         // Update the balance of the account.
                         accountRepository.addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
 
-                        log.debug("Transaction is settled!: {}", transaction);
+                        log.debug("The transaction is settled!: {}", transaction);
                         break;
                     default:
-                        log.debug("Transaction is not authorized yet!: {}", transaction);
+                        log.error("The transaction is not authorized yet!: {}", transaction);
                         return;
                 }
 
@@ -117,10 +117,10 @@ public class TransactionService {
                     // Stop the process because the current transaction is not valid
                     throw new CyberSourceError(String.valueOf(status), e.getMessage());
                 }
-                log.error("An error occurred while settling transaction with CyberSource API : {}", e.getMessage());
+                log.error("An error occurred while settling transaction with CyberSource API. Transaction ID : {}", transactionId);
                 e.printStackTrace();
             } catch (Exception e) {
-                log.error("Error while settling transaction!");
+                log.error("Error while settling transaction. Transaction ID: {}", transactionId);
                 e.printStackTrace();
             } finally {
                 try {
