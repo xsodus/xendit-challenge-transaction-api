@@ -119,6 +119,8 @@ public class TransactionService {
             } catch (ApiException e) {
                 var status = e.getCode();
                 if(status < 500) {
+                    transaction.setStatus("INVALID");
+                    transactionRepository.save(transaction);
                     // Stop the process because the current transaction is not valid
                     throw new CyberSourceError(String.valueOf(status), e.getMessage());
                 }

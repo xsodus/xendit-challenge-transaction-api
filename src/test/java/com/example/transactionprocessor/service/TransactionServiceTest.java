@@ -219,7 +219,7 @@ public class TransactionServiceTest {
             transactionService.settleTransaction(1L);
         });
 
-        verify(transactionRepository, never()).save(transaction);
+        verify(transactionRepository, times(1)).save(transaction);
         verify(accountRepository, never()).addAmountToBalance(any(), any());
     }
 
