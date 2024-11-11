@@ -11,7 +11,6 @@ import com.example.transactionprocessor.service.AccountService;
 import com.example.transactionprocessor.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,14 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class PaymentController implements PaymentApi {
-    @Autowired
-    private TransactionService transactionService;
 
-    @Autowired
-    private AccountService accountService;
+    private final TransactionService transactionService;
 
-    @Autowired
-    private PaymentMapper paymentMapper;
+
+    private final AccountService accountService;
+
+
+    private final PaymentMapper paymentMapper;
+
+    public PaymentController(TransactionService transactionService, AccountService accountService,
+                             PaymentMapper paymentMapper) {
+        this.transactionService = transactionService;
+        this.accountService = accountService;
+        this.paymentMapper = paymentMapper;
+    }
 
     @Override
     @PostMapping(
