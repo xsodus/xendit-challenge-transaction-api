@@ -58,6 +58,10 @@ public class PaymentMapper {
         Ptsv2paymentsClientReferenceInformation clientReferenceInformation = new Ptsv2paymentsClientReferenceInformation();
         clientReferenceInformation.code(SUPPORTED_CLIENT_REFERENCE_INFORMATION);
 
+        // Set the processing information
+        Ptsv2paymentsProcessingInformation processingInformation = new Ptsv2paymentsProcessingInformation();
+        // Do not capture the payment because the transaction will be captured in Transaction.settleTransaction() as the requirements
+        processingInformation.capture(false);
 
         CreatePaymentRequest createPaymentRequest = new CreatePaymentRequest();
         createPaymentRequest.setOrderInformation(ptsv2paymentsOrderInformation);
