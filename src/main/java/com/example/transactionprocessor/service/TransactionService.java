@@ -7,6 +7,7 @@ import Model.PtsV2PaymentsPost201Response;
 import com.example.transactionprocessor.config.ApplicationConfig;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.mapper.PaymentMapper;
+import com.example.transactionprocessor.model.Account;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.AccountRepository;
 import com.example.transactionprocessor.repository.TransactionRepository;
@@ -53,7 +54,7 @@ public class TransactionService {
         this.applicationConfig = applicationConfig;
     }
 
-    public Transaction authorizeTransaction(ProcessPaymentRequestDTO processPaymentRequestDTO) throws CyberSourceError {
+    public Transaction authorizeTransaction(Account account, ProcessPaymentRequestDTO processPaymentRequestDTO) throws CyberSourceError {
         CreatePaymentRequest requestObj = paymentMapper.toCreatePaymentRequestForSimpleAuthorization(processPaymentRequestDTO);
 
 
@@ -67,9 +68,10 @@ public class TransactionService {
         }
 
         Transaction transaction = new Transaction();
-        transaction.setAccountId(processPaymentRequestDTO.getAccountId());
+        transaction.setAccount(account);
         transaction.setAmount(processPaymentRequestDTO.getAmount());
         transaction.setCurrency(processPaymentRequestDTO.getCurrency());
+
         // Set the reference payment id from CyberSource which is auto-generated
         transaction.setReferencePaymentId(response.getId());
 
@@ -105,7 +107,7 @@ public class TransactionService {
                         transaction = transactionRepository.save(transaction);
 
                         // Update the balance of the account.
-                        accountRepository.addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
+                        accountRepository.addAmountToBalance(transaction.getAccount().getId(), transaction.getAuthorizedAmount());
 
                         log.debug("The transaction is settled!: {}", transaction);
                         return;

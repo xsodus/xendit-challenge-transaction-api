@@ -20,7 +20,7 @@ public class AccountService {
     // Implement a function to create account by accountId
     public Account createAccountById(Long accountId) {
         Account account = new Account();
-        account.setAccountId(accountId);
+        account.setId(accountId);
         return accountRepository.save(account);
     }
 }

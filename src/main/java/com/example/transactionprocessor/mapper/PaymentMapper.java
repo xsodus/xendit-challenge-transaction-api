@@ -14,6 +14,7 @@ import Model.Ptsv2paymentsProcessingInformation;
 import Model.Ptsv2paymentsidcapturesOrderInformation;
 import Model.Ptsv2paymentsidcapturesOrderInformationAmountDetails;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
+import com.example.transactionprocessor.dto.response.ProcessPaymentResponseDTO;
 import com.example.transactionprocessor.model.Transaction;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.stereotype.Component;
@@ -88,5 +89,19 @@ public class PaymentMapper {
         requestObj.orderInformation(orderInformation);
 
         return requestObj;
+    }
+
+    // Create a function to transform Transaction object to ProcessPaymentResponseDTO object
+    public ProcessPaymentResponseDTO toProcessPaymentResponseDTO(Transaction transaction) {
+        ProcessPaymentResponseDTO responseDTO = new ProcessPaymentResponseDTO();
+        responseDTO.setId(transaction.getId());
+        responseDTO.setAmount(transaction.getAmount());
+        responseDTO.setCurrency(transaction.getCurrency());
+        responseDTO.setAccountId(transaction.getAccount().getId());
+        responseDTO.setStatus(transaction.getStatus());
+        responseDTO.setReferencePaymentId(transaction.getReferencePaymentId());
+        responseDTO.setCreatedAt(transaction.getCreatedAt());
+        responseDTO.setUpdatedAt(transaction.getUpdatedAt());
+        return responseDTO;
     }
 }

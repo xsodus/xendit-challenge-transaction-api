@@ -2,6 +2,8 @@ package com.example.transactionprocessor.controller;
 import com.example.transactionprocessor.api.PaymentApi;
 import com.example.transactionprocessor.dto.request.CreditCardDetail;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
+import com.example.transactionprocessor.dto.response.ProcessPaymentResponseDTO;
+import com.example.transactionprocessor.mapper.PaymentMapper;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.runtime.error.exception.CyberSourceError;
 import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
@@ -25,20 +27,18 @@ public class PaymentController implements PaymentApi {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private PaymentMapper paymentMapper;
+
     @Override
     @PostMapping(
             value = "/api/payments",
             produces = "application/json",
             consumes = "application/json"
     )
-    public ResponseEntity<Transaction> processPayment(@RequestBody @Valid
+    public ResponseEntity<ProcessPaymentResponseDTO> processPayment(@RequestBody @Valid
                                       ProcessPaymentRequestDTO processPaymentRequestDTO)
             throws InvalidInputError, CyberSourceError {
-        // TODO : Validate this logic with unit test
-        // Valid the accountId in processPaymentRequestDTO does exist in the system
-        if (!accountService.getAccountById(processPaymentRequestDTO.getAccountId()).isPresent()) {
-            throw new InvalidInputError("Account not found");
-        }
 
         // Validate credit card data in processPaymentRequestDTO
         CreditCardDetail creditCardDetail = processPaymentRequestDTO.getCreditCardDetail();
@@ -75,11 +75,17 @@ public class PaymentController implements PaymentApi {
             throw new InvalidInputError("Invalid postal code");
         }
 
+        // Valid the accountId in processPaymentRequestDTO does exist in the system
+        var account = accountService.getAccountById(processPaymentRequestDTO.getAccountId());
+        if (!account.isPresent()) {
+            throw new InvalidInputError("Account not found");
+        }
+
         // Authorize the payment
-        Transaction transaction = transactionService.authorizeTransaction(processPaymentRequestDTO);
+        Transaction transaction = transactionService.authorizeTransaction(account.get(),processPaymentRequestDTO);
         // Asynchronously settle the payment
         transactionService.settleTransaction(transaction.getId());
-        return ResponseEntity.ok(transaction);
+        return ResponseEntity.ok(paymentMapper.toProcessPaymentResponseDTO(transaction));
     }
 
 }

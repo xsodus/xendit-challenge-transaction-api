@@ -1,6 +1,7 @@
 package com.example.transactionprocessor.api;
 
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
+import com.example.transactionprocessor.dto.response.ProcessPaymentResponseDTO;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.runtime.error.exception.CyberSourceError;
 import com.example.transactionprocessor.runtime.error.exception.InvalidInputError;
@@ -23,7 +24,7 @@ public interface PaymentApi {
             @ApiResponse(responseCode = "200", description = "Results are ok"),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)})
-    ResponseEntity<Transaction> processPayment(ProcessPaymentRequestDTO processPaymentRequestDTO)
+    ResponseEntity<ProcessPaymentResponseDTO> processPayment(ProcessPaymentRequestDTO processPaymentRequestDTO)
             throws InvalidInputError, CyberSourceError;
 
 }

@@ -1,6 +1,9 @@
 package com.example.transactionprocessor.controller;
 
 import com.example.transactionprocessor.api.AccountApi;
+import com.example.transactionprocessor.dto.response.AccountResponseDTO;
+import com.example.transactionprocessor.dto.response.ProcessPaymentResponseDTO;
+import com.example.transactionprocessor.mapper.PaymentMapper;
 import com.example.transactionprocessor.model.Account;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.AccountRepository;
@@ -8,6 +11,8 @@ import com.example.transactionprocessor.runtime.error.exception.InvalidInputErro
 import com.example.transactionprocessor.service.TransactionService;
 import java.util.List;
 
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,19 +28,28 @@ public class AccountController implements AccountApi {
 
     private final TransactionService transactionService;
 
+
+    private final PaymentMapper paymentMapper;
+
     public AccountController(AccountRepository accountRepository,
-                             TransactionService transactionService) {
+                             TransactionService transactionService,
+                             PaymentMapper paymentMapper) {
         this.accountRepository = accountRepository;
         this.transactionService = transactionService;
+        this.paymentMapper = paymentMapper;
     }
 
     @Override
     @GetMapping(value = "/{accountId}", produces = {"application/json"} )
-    public ResponseEntity<Account> getAccountData(Long accountId) throws InvalidInputError {
+    public ResponseEntity<AccountResponseDTO> getAccountData(Long accountId) throws InvalidInputError {
         // fetch account by accountId from Account Service and return 404 if not found
         var account = accountRepository.findById(accountId);
         if(account.isPresent()){
-            return ResponseEntity.ok(account.get());
+            AccountResponseDTO responseDTO = new AccountResponseDTO();
+            // Map responseDTO with Account data
+            responseDTO.setId(account.get().getId());
+            responseDTO.setBalance(account.get().getBalance());
+            return ResponseEntity.ok(responseDTO);
         } else {
             throw new InvalidInputError("Account not found!");
         }
@@ -50,7 +64,7 @@ public class AccountController implements AccountApi {
             throw new InvalidInputError("The account already exists!");
         } else {
             Account newAccount = new Account();
-            newAccount.setAccountId(accountId);
+            newAccount.setId(accountId);
             accountRepository.save(newAccount);
             return ResponseEntity.ok(newAccount);
         }
@@ -61,12 +75,19 @@ public class AccountController implements AccountApi {
             value = "/{accountId}/transactions",
             produces = "application/json"
     )
-    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("accountId") Long accountId)
+    public ResponseEntity<List<ProcessPaymentResponseDTO>> getTransactions(@PathVariable("accountId") Long accountId)
             throws InvalidInputError {
         var transactions = transactionService.getTransactionsByAccountId(accountId);
         if (transactions.isEmpty()) {
             throw new InvalidInputError("No transactions found for the account");
         }
-        return ResponseEntity.ok(transactions);
+        // Map transactions to ProcessPaymentResponseDTO
+        // Map transactions to ProcessPaymentResponseDTO
+        List<ProcessPaymentResponseDTO> responseDTOs = transactions.stream().map(transaction -> {
+            ProcessPaymentResponseDTO dto = paymentMapper.toProcessPaymentResponseDTO(transaction);
+            return dto;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(responseDTOs);
     }
 }

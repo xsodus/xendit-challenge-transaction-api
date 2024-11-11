@@ -13,6 +13,7 @@ import com.example.transactionprocessor.dto.request.BillingDetail;
 import com.example.transactionprocessor.dto.request.CreditCardDetail;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.mapper.PaymentMapper;
+import com.example.transactionprocessor.model.Account;
 import com.example.transactionprocessor.model.Transaction;
 import com.example.transactionprocessor.repository.AccountRepository;
 import com.example.transactionprocessor.repository.TransactionRepository;
@@ -119,8 +120,11 @@ public class TransactionServiceTest {
         when(paymentsApi.createPayment(any())).thenReturn(response);
         when(transactionRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
+        Account account = new Account();
+        account.setId(accountId);
+        account.setBalance(new BigDecimal(0));
 
-        Transaction transaction = transactionService.authorizeTransaction(requestDTO);
+        Transaction transaction = transactionService.authorizeTransaction(account, requestDTO);
 
         assertEquals("12345", transaction.getReferencePaymentId());
         assertEquals("AUTHORIZED", transaction.getStatus());
@@ -147,6 +151,12 @@ public class TransactionServiceTest {
         transaction.setReferencePaymentId("12345");
         transaction.setAuthorizedAmount(new BigDecimal("100.00"));
 
+        Account account = new Account();
+        account.setId(1L);
+        account.setBalance(new BigDecimal(1L));
+
+        transaction.setAccount(account);
+
         var mockedResponse =  new PtsV2PaymentsCapturesPost201Response();
 
         mockedResponse.setStatus("TRANSMITTED");
@@ -157,7 +167,7 @@ public class TransactionServiceTest {
         transactionService.settleTransaction(1L);
 
         verify(transactionRepository, times(1)).save(transaction);
-        verify(accountRepository, times(1)).addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
+        verify(accountRepository, times(1)).addAmountToBalance(transaction.getAccount().getId(), transaction.getAuthorizedAmount());
     }
 
     @Test
@@ -169,6 +179,11 @@ public class TransactionServiceTest {
         transaction.setAmount(new BigDecimal("100.00"));
         transaction.setCurrency("USD");
         transaction.setAuthorizedAmount(new BigDecimal("100.00"));
+
+        Account account = new Account();
+        account.setId(1L);
+
+        transaction.setAccount(account);
 
         when(transactionRepository.findById(1L)).thenReturn(Optional.of(transaction));
 
@@ -182,7 +197,7 @@ public class TransactionServiceTest {
         transactionService.settleTransaction(1L);
 
         verify(transactionRepository, times(1)).save(transaction);
-        verify(accountRepository, times(1)).addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
+        verify(accountRepository, times(1)).addAmountToBalance(transaction.getAccount().getId(), transaction.getAuthorizedAmount());
         assertEquals("SETTLED", transaction.getStatus());
     }
 
@@ -228,6 +243,10 @@ public class TransactionServiceTest {
     @Test
     public void testAuthorizeTransactionThrowsCyberSourceError() throws ApiException {
         Long accountId = 1L;
+        Account account = new Account();
+        account.setId(accountId);
+        account.setBalance(new BigDecimal("100.00"));
+
         BigDecimal amount = new BigDecimal("100.00");
         String currency = "USD";
         String cardNumber = "4111111111111111";
@@ -263,11 +282,15 @@ public class TransactionServiceTest {
         when(paymentsApi.createPayment(any())).thenThrow(new ApiException(500, "Internal Server Error"));
 
         assertThrows(CyberSourceError.class, () -> {
-            transactionService.authorizeTransaction(requestDTO);
+            transactionService.authorizeTransaction(account, requestDTO);
         });
     }
     @Test
     public void testSettleTransactionReachesMaxRetry() throws CyberSourceError, ApiException {
+        Account account = new Account();
+        account.setId(1L);
+        account.setBalance(new BigDecimal("100.00"));
+
         // Arrange
         Long transactionId = 1L;
         Transaction transaction = new Transaction();
@@ -275,7 +298,7 @@ public class TransactionServiceTest {
         transaction.setStatus("AUTHORIZED");
         transaction.setReferencePaymentId("12345");
         transaction.setAuthorizedAmount(new BigDecimal("100.00"));
-        transaction.setAccountId(1L);
+        transaction.setAccount(account);
 
         when(transactionRepository.findById(transactionId)).thenReturn(Optional.of(transaction));
 
