@@ -29,7 +29,7 @@ This repository contains the Transaction Processor API built with Spring Boot.
     ./mvnw spring-boot:run
     ```
 
-    The application will start on [`http://localhost:8080`](src/main/java/com/example/transactionprocessor/api/AccountApi.java ).
+    The application will start on [`http://localhost:8080`](http://localhost:8080).
     
     NOTES: Change the main command to `mvnw.cmd` if you run on Windows machine. 
 
@@ -39,7 +39,7 @@ Swagger UI is available to test the API endpoints.
 
 1. **Open Swagger UI:**
 
-    Navigate to [`http://localhost:8080/swagger-ui.html`](src/main/java/com/example/transactionprocessor/api/AccountApi.java ) in your web browser.
+    Navigate to [`http://localhost:8080/swagger-ui.html`](http://localhost:8080/swagger-ui.html) in your web browser.
 
 2. **Create an Account:**
 
