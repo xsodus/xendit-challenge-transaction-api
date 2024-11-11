@@ -140,7 +140,8 @@ public class TransactionServiceTest {
         transaction.setAuthorizedAmount(new BigDecimal("100.00"));
 
         var mockedResponse =  new PtsV2PaymentsCapturesPost201Response();
-        mockedResponse.setStatus("PENDING");
+        
+        mockedResponse.setStatus("TRANSMITTED");
         when(transactionRepository.findById(1L)).thenReturn(Optional.of(transaction));
         when(captureApi.capturePayment(any(), any())).thenReturn(mockedResponse);
         when(transactionRepository.save(any())).thenReturn(transaction);
