@@ -188,6 +188,31 @@ To run the tests, execute the following command:
 
 This will run all the unit tests and integration tests in the project.
 
+## Running Tests via IntelliJ IDEA
+
+To run the test classes via IntelliJ IDEA, follow these steps:
+
+1. **Open IntelliJ IDEA:**
+    Launch IntelliJ IDEA on your machine and open the `xendit-challenge-transaction-api` project.
+
+2. **Navigate to the test class:**
+    In the Project tool window, navigate to the `src/test/java` directory and locate the test class you want to run (e.g., `PaymentControllerTest` or `TransactionServiceTest`).
+
+3. **Run the test class:**
+    - Right-click on the test class file.
+    - Select `Run 'PaymentControllerTest'` or `Run 'TransactionServiceTest'` from the context menu.
+
+4. **Run individual test methods:**
+    - Open the test class file.
+    - Locate the test method you want to run.
+    - Right-click on the test method name.
+    - Select `Run 'testMethodName'` from the context menu.
+
+5. **View test results:**
+    The test results will be displayed in the Run tool window at the bottom of the IntelliJ IDEA interface. You can view the status of each test, including any errors or failures.
+
+By following these steps, you can easily run and debug your test classes and methods directly within IntelliJ IDEA.
+
 ## CyberSource SDK
 
 The CyberSource SDK is used to interact with the CyberSource payment gateway. You can find the CyberSource SDK on GitHub:
