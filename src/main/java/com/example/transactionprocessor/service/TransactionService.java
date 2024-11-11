@@ -4,6 +4,7 @@ import Api.PaymentsApi;
 import Invokers.ApiException;
 import Model.CreatePaymentRequest;
 import Model.PtsV2PaymentsPost201Response;
+import com.example.transactionprocessor.config.ApplicationConfig;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
 import com.example.transactionprocessor.mapper.PaymentMapper;
 import com.example.transactionprocessor.model.Transaction;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -32,22 +34,23 @@ public class TransactionService {
 
     private final PaymentMapper paymentMapper;
 
-    private static final long BASE_DELAY = 1000; // 1 second
-    private static final long MAX_DELAY = 60000; // 60 seconds
 
-
+    private final ApplicationConfig applicationConfig;
 
     public TransactionService(TransactionRepository transactionRepository,
                               AccountRepository accountRepository,
                               PaymentsApi paymentsApi,
                               CaptureApi captureApi,
-                                PaymentMapper paymentMapper
+                              PaymentMapper paymentMapper,
+                              ApplicationConfig applicationConfig
+
     ) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.paymentsApi = paymentsApi;
         this.captureApi = captureApi;
         this.paymentMapper = paymentMapper;
+        this.applicationConfig = applicationConfig;
     }
 
     public Transaction authorizeTransaction(ProcessPaymentRequestDTO processPaymentRequestDTO) throws CyberSourceError {
@@ -86,9 +89,9 @@ public class TransactionService {
     public void settleTransaction(Long transactionId) throws CyberSourceError {
         Transaction transaction = transactionRepository.findById(transactionId).orElseThrow();
         int retryCount = 0;
-        while (!"SETTLED".equals(transaction.getStatus())) {
+        while (!"SETTLED".equals(transaction.getStatus()) && retryCount <= applicationConfig.getMaxRetry()) {
             try {
-                log.info("Transaction is being captured!: {}", transactionId);
+                log.info("Transaction is being captured!: Transaction ID : {}", transactionId);
                 // Simulate delay for settlement
                 switch (transaction.getStatus()) {
                     case "AUTHORIZED":
@@ -105,7 +108,7 @@ public class TransactionService {
                         accountRepository.addAmountToBalance(transaction.getAccountId(), transaction.getAuthorizedAmount());
 
                         log.debug("The transaction is settled!: {}", transaction);
-                        break;
+                        return;
                     default:
                         log.error("The transaction is not authorized yet!: {}", transaction);
                         return;
@@ -122,11 +125,16 @@ public class TransactionService {
             } catch (Exception e) {
                 log.error("Error while settling transaction. Transaction ID: {}", transactionId);
                 e.printStackTrace();
-                throw e;
             } finally {
                 try {
                     // Retry with exponential backoff delay
                     Thread.sleep(calculateExponentialBackoffDelay(retryCount++));
+
+                    if(retryCount == applicationConfig.getMaxRetry()) {
+                        log.error("The transaction is not settled after {} retries. Transaction ID: {}", applicationConfig.getMaxRetry(), transactionId);
+                    } else {
+                        log.info("Retry to settle the transaction with CyberSource API. Transaction ID: {}", transactionId);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -135,7 +143,7 @@ public class TransactionService {
     }
 
     private long calculateExponentialBackoffDelay(int retryCount) {
-        long delay = BASE_DELAY * (1L << retryCount);
-        return Math.min(delay, MAX_DELAY);
+        long delay = applicationConfig.getBaseDelay() * (1L << retryCount);
+        return Math.min(delay, applicationConfig.getMaxDelay());
     }
 }

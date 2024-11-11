@@ -8,6 +8,7 @@ import Model.PtsV2PaymentsCapturesPost201Response;
 import Model.PtsV2PaymentsPost201Response;
 import Model.PtsV2PaymentsPost201ResponseOrderInformation;
 import Model.PtsV2PaymentsPost201ResponseOrderInformationAmountDetails;
+import com.example.transactionprocessor.config.ApplicationConfig;
 import com.example.transactionprocessor.dto.request.BillingDetail;
 import com.example.transactionprocessor.dto.request.CreditCardDetail;
 import com.example.transactionprocessor.dto.request.ProcessPaymentRequestDTO;
@@ -25,9 +26,9 @@ import org.mockito.MockitoAnnotations;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -51,9 +52,16 @@ public class TransactionServiceTest {
     @InjectMocks
     private TransactionService transactionService;
 
+    @Mock
+    private ApplicationConfig applicationConfig;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        // Set the max retry to 3
+        when(applicationConfig.getMaxRetry()).thenReturn(3);
+        when(applicationConfig.getBaseDelay()).thenReturn(100L);
+        when(applicationConfig.getMaxDelay()).thenReturn(1000L);
     }
 
     @Test
@@ -140,7 +148,7 @@ public class TransactionServiceTest {
         transaction.setAuthorizedAmount(new BigDecimal("100.00"));
 
         var mockedResponse =  new PtsV2PaymentsCapturesPost201Response();
-        
+
         mockedResponse.setStatus("TRANSMITTED");
         when(transactionRepository.findById(1L)).thenReturn(Optional.of(transaction));
         when(captureApi.capturePayment(any(), any())).thenReturn(mockedResponse);
@@ -257,5 +265,36 @@ public class TransactionServiceTest {
         assertThrows(CyberSourceError.class, () -> {
             transactionService.authorizeTransaction(requestDTO);
         });
+    }
+    @Test
+    public void testSettleTransactionReachesMaxRetry() throws CyberSourceError, ApiException {
+        // Arrange
+        Long transactionId = 1L;
+        Transaction transaction = new Transaction();
+        transaction.setId(transactionId);
+        transaction.setStatus("AUTHORIZED");
+        transaction.setReferencePaymentId("12345");
+        transaction.setAuthorizedAmount(new BigDecimal("100.00"));
+        transaction.setAccountId(1L);
+
+        when(transactionRepository.findById(transactionId)).thenReturn(Optional.of(transaction));
+
+        // Mock capturePayment to always throw ApiException with status 500
+        when(captureApi.capturePayment(any(), any())).thenThrow(new ApiException(500, "Internal Server Error"));
+
+        // Act
+        transactionService.settleTransaction(transactionId);
+
+        var expectedApiCall = 4;
+
+        // Assert
+        // Verify that capturePayment was called MAX_RETRY+1 times
+        verify(captureApi, times(expectedApiCall)).capturePayment(any(), any());
+
+        // Verify that transactionRepository.save was called MAX_RETRY times
+        verify(transactionRepository, never()).save(transaction);
+
+        // Verify that accountRepository.addAmountToBalance was never called
+        verify(accountRepository, never()).addAmountToBalance(any(), any());
     }
 }
