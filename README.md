@@ -33,6 +33,27 @@ This repository contains the Transaction Processor API built with Spring Boot.
     
     NOTES: Change the main command to `mvnw.cmd` if you run on Windows machine. 
 
+## Opening the Project with IntelliJ
+
+To open the project with IntelliJ IDEA, follow these steps:
+
+1. **Open IntelliJ IDEA:**
+    Launch IntelliJ IDEA on your machine.
+
+2. **Import the project:**
+    - Click on `File` > `New` > `Project from Existing Sources...`.
+    - Navigate to the directory where you cloned the repository (`xendit-challenge-transaction-api`).
+    - Select the `pom.xml` file and click `Open`.
+
+3. **Import Maven dependencies:**
+    IntelliJ IDEA will automatically detect the Maven project and import all the dependencies. If not, you can manually trigger the import by clicking on the `Maven` tool window and then clicking the `Refresh` button.
+
+4. **Run the application:**
+    - Open the `TransactionProcessorApiApplication` class.
+    - Right-click on the class and select `Run 'TransactionProcessorApiApplication'`.
+
+The application should start, and you can access it at [`http://localhost:8080`](http://localhost:8080).
+
 ## Accessing Swagger UI
 
 Swagger UI is available to test the API endpoints.
@@ -187,3 +208,4 @@ To include the CyberSource SDK in your project, add the following dependency to 
 
 - **Configuration:** The application configuration is located in [`src/main/resources/application.yml`](src/main/resources/application.yml ).
 - **Logging:** Logs are configured to be written to the console and can be adjusted in the [`src/main/resources/application.yml`](src/main/resources/application.yml ) file.
+
