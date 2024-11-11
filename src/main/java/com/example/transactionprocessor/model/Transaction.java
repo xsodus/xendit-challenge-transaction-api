@@ -1,5 +1,6 @@
 package com.example.transactionprocessor.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,9 @@ public class Transaction {
     private BigDecimal amount = BigDecimal.ZERO;
     private String currency;
 
+    @Column(unique = true)
     private String referencePaymentId;
+
     // Sometime, the amount authorized can be partial of the initial amount
     // So, we need this field to keep track of the authorized amount
     private BigDecimal authorizedAmount = BigDecimal.ZERO;
