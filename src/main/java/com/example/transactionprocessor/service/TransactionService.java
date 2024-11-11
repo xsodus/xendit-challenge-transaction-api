@@ -122,6 +122,7 @@ public class TransactionService {
             } catch (Exception e) {
                 log.error("Error while settling transaction. Transaction ID: {}", transactionId);
                 e.printStackTrace();
+                throw e;
             } finally {
                 try {
                     // Retry with exponential backoff delay
