@@ -72,7 +72,6 @@ public class PaymentControllerTest {
     public void testProcessPaymentInvalidCreditCardNumber() throws Exception {
         var payload = fileReader.getRequest("Post_Process_Payment_Invalid_CreditCardNumber.json");
 
-        accountService.createAccountById(123L);
 
         var response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -91,7 +90,6 @@ public class PaymentControllerTest {
     public void testProcessPaymentInvalidExpirationMonth() throws Exception {
         var payload = fileReader.getRequest("Post_Process_Payment_Invalid_ExpirationMonth.json");
 
-        accountService.createAccountById(123L);
 
         var response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -110,7 +108,6 @@ public class PaymentControllerTest {
     public void testProcessPaymentInvalidExpirationYear() throws Exception {
         var payload = fileReader.getRequest("Post_Process_Payment_Invalid_ExpirationYear.json");
 
-        accountService.createAccountById(123L);
 
         var response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -129,8 +126,6 @@ public class PaymentControllerTest {
     public void testProcessPaymentInvalidEmail() throws Exception {
         var payload = fileReader.getRequest("Post_Process_Payment_Invalid_Email.json");
 
-        accountService.createAccountById(123L);
-
         var response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -147,8 +142,6 @@ public class PaymentControllerTest {
     @Test
     public void testProcessPaymentInvalidPostalCode() throws Exception {
         var payload = fileReader.getRequest("Post_Process_Payment_Invalid_PostalCode.json");
-
-        accountService.createAccountById(123L);
 
         var response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
