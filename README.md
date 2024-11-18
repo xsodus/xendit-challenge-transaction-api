@@ -66,16 +66,8 @@ Swagger UI is available to test the API endpoints.
 
     Before calling the `/api/payments` endpoint, you need to create an account using the `/accounts` endpoint.
 
-    - **Method:** PUT
-    - **Endpoint:** `/accounts`
-    - **Request Body:**
-
-    ```json
-    {
-      "accountId": 123,
-      "balance": 1000.00
-    }
-    ```
+    - **Method:** POST
+    - **Endpoint:** `/accounts/{accountId}`
 
     Click on the "Try it out" button, enter the request body, and click "Execute" to create the account.
 

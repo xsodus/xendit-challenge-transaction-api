@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,7 +57,7 @@ public class AccountController implements AccountApi {
     }
 
     @Override
-    @PutMapping(value = "/{accountId}", produces = {"application/json"} )
+    @PostMapping(value = "/{accountId}", produces = {"application/json"} )
     public ResponseEntity<Account> createAccountData(Long accountId) throws InvalidInputError {
         // Create account by accountId from Account Service and return bad request status if account already exists
         var account = accountRepository.findById(accountId);
@@ -81,7 +82,7 @@ public class AccountController implements AccountApi {
         if (transactions.isEmpty()) {
             throw new InvalidInputError("No transactions found for the account");
         }
-        // Map transactions to ProcessPaymentResponseDTO
+
         // Map transactions to ProcessPaymentResponseDTO
         List<ProcessPaymentResponseDTO> responseDTOs = transactions.stream().map(transaction -> {
             ProcessPaymentResponseDTO dto = paymentMapper.toProcessPaymentResponseDTO(transaction);
