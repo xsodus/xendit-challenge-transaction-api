@@ -78,16 +78,17 @@ public class AccountController implements AccountApi {
     )
     public ResponseEntity<List<ProcessPaymentResponseDTO>> getTransactions(@PathVariable("accountId") Long accountId)
             throws InvalidInputError {
-        var transactions = transactionService.getTransactionsByAccountId(accountId);
-        if (transactions.isEmpty()) {
+        var account = accountRepository.findById(accountId);
+        if (account.isEmpty()) {
             throw new InvalidInputError("No transactions found for the account");
         }
 
         // Map transactions to ProcessPaymentResponseDTO
-        List<ProcessPaymentResponseDTO> responseDTOs = transactions.stream().map(transaction -> {
-            ProcessPaymentResponseDTO dto = paymentMapper.toProcessPaymentResponseDTO(transaction);
-            return dto;
-        }).collect(Collectors.toList());
+        List<ProcessPaymentResponseDTO> responseDTOs = account.get()
+                .getTransactions()
+                .stream()
+                .map(paymentMapper::toProcessPaymentResponseDTO)
+                .toList();
 
         return ResponseEntity.ok(responseDTOs);
     }
